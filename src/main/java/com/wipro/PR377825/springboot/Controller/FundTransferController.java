@@ -6,9 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import com.wipro.PR377825.springboot.HTML.FundTransferHTML;
 import com.wipro.PR377825.springboot.services.CreditService;
 import com.wipro.PR377825.springboot.services.DebitService;
@@ -35,8 +35,8 @@ public class FundTransferController
 	private String remark, type;
 
 
-	@RequestMapping("/dashboard/FundTransfer/inter")
-	public String InterFundTransfer(Model model)
+	@GetMapping("/dashboard/FundTransfer/inter")
+	public String getInterFund(Model model)
 	{
 		type = "Inter Account transfer";
 		System.out.println("type: "+type);
@@ -48,8 +48,8 @@ public class FundTransferController
 	}
 
 
-	@RequestMapping("/dashboard/FundTransfer/other")
-	public String OtherFundTransfer(Model model)
+	@GetMapping("/dashboard/FundTransfer/other")
+	public String getOtherFund(Model model)
 	{
 		type = "Other Account transfer";
 		System.out.println("type: "+type);
@@ -62,8 +62,8 @@ public class FundTransferController
 
 
 
-	@RequestMapping(value = "/dashboard/FundTransfer/confirm", produces = "application/HTML")
-	public String FundTransferConfirm(@ModelAttribute FundTransferHTML HTMLobj , BindingResult result, ModelMap model) 
+	@PostMapping(value = "/dashboard/FundTransfer/confirm", produces = "application/HTML")
+	public String updateFunds(@ModelAttribute FundTransferHTML HTMLobj , BindingResult result, ModelMap model) 
 	{
 		fromAcc = HTMLobj.getFromAcc();
 		System.out.println("fromAcc from Fund Transfer form: "+fromAcc);		
@@ -102,10 +102,6 @@ public class FundTransferController
 						}
 						else
 						{
-							//						String error = "User does not have enough balance to transfer funds";
-							//						System.out.println(error);
-							//						model.addAttribute("error",error);
-							//						return "Error";
 							if (type == "Inter Account transfer")
 							{
 								model.addAttribute("name",dashCrtl.getCustomerName());
@@ -125,10 +121,6 @@ public class FundTransferController
 
 					else
 					{
-						//					String error = "Beneficiary account is not active";
-						//					System.out.println(error);
-						//					model.addAttribute("error",error);
-						//					return "Error";
 						if (type == "Inter Account transfer")
 						{
 							model.addAttribute("name",dashCrtl.getCustomerName());
@@ -167,10 +159,6 @@ public class FundTransferController
 
 			else
 			{
-				//				String error = "Funds can't be transfered from and to same account";
-				//				System.out.println(error);
-				//				model.addAttribute("error",error);
-				//				return "Error";
 				if (type == "Inter Account transfer")
 				{
 					model.addAttribute("name",dashCrtl.getCustomerName());
@@ -196,8 +184,8 @@ public class FundTransferController
 	}
 
 
-	@RequestMapping(value="/dashboard/FundTransfer/confirm/ack", produces = "application/HTML")
-	public String FundTransferAck(ModelMap model) 
+	@PostMapping(value="/dashboard/FundTransfer/confirm/ack", produces = "application/HTML")
+	public String saveFunds(ModelMap model) 
 	{
 		try 
 		{

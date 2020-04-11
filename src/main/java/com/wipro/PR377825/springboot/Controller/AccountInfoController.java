@@ -5,8 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.wipro.PR377825.springboot.HTML.NewCustomerHTML;
 import com.wipro.PR377825.springboot.services.EnquiryService;
@@ -26,8 +27,8 @@ public class AccountInfoController
 	
 	String field="";
 	
-	@RequestMapping(value = "/dashboard/SavingAccountInfo")
-	public String SavingAccountInfo(ModelMap model)
+	@GetMapping(value = "/dashboard/SavingAccountInfo")
+	public String getSavingAccountInfo(ModelMap model)
 	{
 		long accountNum = dashCtrl.getSavingAccNumber();
 		System.out.println("accountNum from dashboard controller:"+accountNum);
@@ -50,8 +51,8 @@ public class AccountInfoController
 	}
 	
 	
-	@RequestMapping(value = "/dashboard/CurrentAccountInfo")
-	public String CurrentAccountInfo(ModelMap model)
+	@GetMapping(value = "/dashboard/CurrentAccountInfo")
+	public String getCurrentAccountInfo(ModelMap model)
 	{
 		long accountNum = dashCtrl.getCurrentAccNumber();
 		System.out.println("accountNum from dashboard controller:"+accountNum);
@@ -73,8 +74,8 @@ public class AccountInfoController
 		return "Enquiry";
 	}
 	
-	@RequestMapping(value = "/dashboard/Profile")
-	public String ProfileInfo(ModelMap model)
+	@GetMapping(value = "/dashboard/Profile")
+	public String getProfileInfo(ModelMap model)
 	{
 		String userID = dashCtrl.getUserID();
 		System.out.println("userID from dashboard: "+userID);
@@ -96,8 +97,8 @@ public class AccountInfoController
 	}
 	
 	
-	@RequestMapping(value = "/dashboard/Profile/update/firstName")
-	public String ProfileUpdate1(ModelMap model)
+	@GetMapping(value = "/dashboard/Profile/update/firstName")
+	public String getProfile1(ModelMap model)
 	{	
 		field = "FirstName";
 		
@@ -107,8 +108,8 @@ public class AccountInfoController
 		return "Profileupdate";
 	}
 	
-	@RequestMapping(value = "/dashboard/Profile/update/lastName")
-	public String ProfileUpdate2(ModelMap model)
+	@GetMapping(value = "/dashboard/Profile/update/lastName")
+	public String getProfile2(ModelMap model)
 	{
 		field = "LastName";
 		
@@ -118,8 +119,8 @@ public class AccountInfoController
 		return "Profileupdate";
 	}
 	
-	@RequestMapping(value = "/dashboard/Profile/update/email")
-	public String ProfileUpdate3(ModelMap model)
+	@GetMapping(value = "/dashboard/Profile/update/email")
+	public String getProfile3(ModelMap model)
 	{		
 		field = "Email";
 		
@@ -129,8 +130,8 @@ public class AccountInfoController
 		return "Profileupdate";
 	}
 	
-	@RequestMapping(value = "/dashboard/Profile/update/phone")
-	public String ProfileUpdate4(ModelMap model)
+	@GetMapping(value = "/dashboard/Profile/update/phone")
+	public String getProfile4(ModelMap model)
 	{		
 		field = "Contact Number";
 		
@@ -141,8 +142,8 @@ public class AccountInfoController
 	}
 	
 	
-	@RequestMapping(value = "/dashboard/Profile/update/ack")
-	public String ProfileUpdateSave(@ModelAttribute NewCustomerHTML HTMLobj , BindingResult result, ModelMap model)
+	@PostMapping(value = "/dashboard/Profile/update/ack")
+	public String updateProfile(@ModelAttribute NewCustomerHTML HTMLobj , BindingResult result, ModelMap model)
 	{
 		String response = HTMLobj.getField();				
 		System.out.println("Value is: "+response);

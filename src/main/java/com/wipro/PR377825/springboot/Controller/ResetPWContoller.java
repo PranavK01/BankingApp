@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.wipro.PR377825.springboot.HTML.ResetPwHTML;
 import com.wipro.PR377825.springboot.services.ResetPwService;
@@ -20,15 +21,15 @@ public class ResetPWContoller
 	
 	private String password;
 
-	@RequestMapping("/forgotPassword")
-	public String resetPW()
+	@GetMapping("/forgotPassword")
+	public String resetPassword()
 	{
 		return "ResetPasswordForm";
 	}
 
 
-	@RequestMapping(value = "/forgotPassword/Ack", produces = "application/HTML")
-	public String ResetPWack(@ModelAttribute ResetPwHTML HTMLobj , BindingResult result, ModelMap model) 
+	@PostMapping(value = "/forgotPassword/Ack", produces = "application/HTML")
+	public String updatePassword(@ModelAttribute ResetPwHTML HTMLobj , BindingResult result, ModelMap model) 
 	{
 		String UserId = HTMLobj.getUserId();
 		System.out.println("UserId from resetPW form: "+UserId);

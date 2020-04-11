@@ -27,6 +27,9 @@
 		<br>
 		
 	</form>
+	<form action="/" >
+		<input type="submit" value="Back"></input><br>
+	</form>
 	
 </body>
 </html>

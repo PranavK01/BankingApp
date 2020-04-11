@@ -13,7 +13,7 @@
 
 		<input type="submit" value="Reset"></input><br>
 	</form>
-	<form method="post" action="/" >
+	<form action="/" >
 		<input type="submit" value="Back"></input><br>
 	</form>
 </body>

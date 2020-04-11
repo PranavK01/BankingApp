@@ -1,14 +1,13 @@
 package com.wipro.PR377825.springboot.Controller;
 
 
-//import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.wipro.PR377825.springboot.HTML.LoginHTML;
 import com.wipro.PR377825.springboot.services.DashboardService;
@@ -29,8 +28,8 @@ public class DashboardController
 	private double savingBalance, currentBalance;
 	private Long savingAccNumber,currentAccNumber,accountnumber[];
 
-	@RequestMapping(value = "/dashboard", produces = "application/HTML")
-	public String Dashboard(@ModelAttribute LoginHTML HTMLobj , BindingResult result, ModelMap model) 
+	@PostMapping(value = "/dashboard", produces = "application/HTML")
+	public String displayDashboard(@ModelAttribute LoginHTML HTMLobj , BindingResult result, ModelMap model) 
 	{
 		UserID = HTMLobj.getUserId();		
 		System.out.println("UserUserID from HTML input:" + UserID);
@@ -105,12 +104,7 @@ public class DashboardController
 					return "Dashboard";
 				}
 				else
-				{
-//					String error = "Incorrect Password";
-//					System.out.println(error);
-//					model.addAttribute("error",error);
-//					return "Error";
-					
+				{	
 					model.addAttribute("name","to Bank");
 					model.addAttribute("msg","Incorrect Password");
 					model.addAttribute("back1","Login");
@@ -119,12 +113,7 @@ public class DashboardController
 				}
 			}
 			else
-			{
-//				String error = "Incorrect UserId";
-//				System.out.println(error);
-//				model.addAttribute("error",error);
-//				return "Error";
-				
+			{				
 				model.addAttribute("name","to Bank");
 				model.addAttribute("msg","Incorrect UserID");
 				model.addAttribute("back1","Login");
@@ -140,8 +129,8 @@ public class DashboardController
 	}
 
 
-	@RequestMapping(value = "/dashboard/AccSummary")
-	public String AccSummary(ModelMap model)
+	@GetMapping(value = "/dashboard/AccSummary")
+	public String getAccSummary(ModelMap model)
 	{
 		customerName=dashService.findUserName(getUserID());
 		System.out.println("customerName from dashboard service: "+customerName);

@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.wipro.PR377825.springboot.HTML.NewCustomerHTML;
 import com.wipro.PR377825.springboot.services.NewCustomerService;
@@ -18,14 +19,14 @@ public class NewCustomerController
 	NewCustomerService custService;
 
 
-	@RequestMapping(value="/create/newCustomer/form")
-	public String Display()
+	@GetMapping(value="/create/newCustomer/form")
+	public String displayForm()
 	{
 		return "NewCustomerForm";		
 	}
 
-	@RequestMapping(value = "/create/newCustomer/ack", produces = "application/HTML")
-	public String Dashboard(@ModelAttribute NewCustomerHTML HTMLobj , BindingResult result, ModelMap model) 
+	@PostMapping(value = "/create/newCustomer/ack", produces = "application/HTML")
+	public String createCustomer(@ModelAttribute NewCustomerHTML HTMLobj , BindingResult result, ModelMap model) 
 	{
 		String firstName = HTMLobj.getFirstName();		
 		System.out.println("firstName from HTML input:" + firstName);
