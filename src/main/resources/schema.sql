@@ -14,7 +14,7 @@ CREATE TABLE customer (
   PRIMARY KEY (user_id),
   UNIQUE KEY UK_email (email));
   
---  INSERT INTO customer
+--INSERT INTO customer (user_id, email, first_name, last_name, password, contact_num, current_accountNum, saving_accountNum) VALUES ("s", "hfjkdasf@kfj.com", "Swet", "Sahu", "123", "758275325", 20050, 20057);
   
   
 --
