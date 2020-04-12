@@ -13,7 +13,7 @@
 		<p>Amount: ${amount}</p>
 		<p>Description: ${Remark}</p>
 		
-		<form action="/dashboard/FundTransfer/confirm/ack">
+		<form action="/dashboard/FundTransfer/confirm/ack" method="post">
 			<input type="submit" value="Submit"></input>
 		</form>
 	</div>
