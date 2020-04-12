@@ -3,6 +3,7 @@ package com.wipro.PR377825.springboot.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 //import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -14,36 +15,33 @@ public class Customer
 {
 	//defining fields
 	@Id
-	@Column(name = "userId")
+	@Column(name = "userId", nullable = false)
 	private String userId;
 	
-	@Column(name="password")
+	@Column(name="password", nullable = false)
 	private String password;
 	
-	@Column(name="first_name")
+	@Column(name="first_name", nullable = false)
 	private String firstName;
     
-	@Column(name="last_name")
+	@Column(name="last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
     
-    @Column(name = "contact_num")
+    @Column(name = "contact_num", nullable = false, unique = true)
     private String phone;
 
-    @Column(name = "current_accountNum")
-    private Long currentAccNum;
-
-    @Column(name = "saving_accountNum")
-    private Long savingAccNum;
-
  // ****  setting up one to one mapping to saving and current entity  ****
-//    @OneToOne
-//    private SavingAccount saving_accountNum;
-//    
-//    @OneToOne
-//    private CurrentAccount current_accountNum;
+    
+    @OneToOne
+//    @JoinColumn(name = "saving_account_num")
+    private SavingAccount saving_accountNum;
+    
+    @OneToOne
+//    @JoinColumn(name = "current_account_num")
+    private CurrentAccount current_accountNum;
 
   
 
@@ -52,8 +50,7 @@ public class Customer
     
     public Customer()  {  }
     
-	public Customer(String userId, String password, String firstName, String lastName, String email, String phone,
-			Long currentAccNum, Long savingAccNum) {
+	public Customer(String userId, String password, String firstName, String lastName, String email, String phone) {
 		super();
 		this.userId = userId;
 		this.password = password;
@@ -61,17 +58,10 @@ public class Customer
 		this.lastName = lastName;
 		this.email = email;
 		this.phone = phone;
-		this.currentAccNum = currentAccNum;
-		this.savingAccNum = savingAccNum;
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [userId=" + userId + ", password=" + password + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", email=" + email + ", phone=" + phone + ", currentAccNum=" + currentAccNum
-				+ ", savingAccNum=" + savingAccNum + "]";
-	}
-
+//	getters and setters
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -120,20 +110,20 @@ public class Customer
 		this.phone = phone;
 	}
 
-	public Long getCurrentAccNum() {
-		return currentAccNum;
+	public SavingAccount getSaving_accountNum() {
+		return saving_accountNum;
 	}
 
-	public void setCurrentAccNum(Long currentAccNum) {
-		this.currentAccNum = currentAccNum;
+	public void setSaving_accountNum(SavingAccount saving_accountNum) {
+		this.saving_accountNum = saving_accountNum;
 	}
 
-	public Long getSavingAccNum() {
-		return savingAccNum;
+	public CurrentAccount getCurrent_accountNum() {
+		return current_accountNum;
 	}
 
-	public void setSavingAccNum(Long savingAccNum) {
-		this.savingAccNum = savingAccNum;
-	}	
-	
+	public void setCurrent_accountNum(CurrentAccount current_accountNum) {
+		this.current_accountNum = current_accountNum;
+	}
+
 }

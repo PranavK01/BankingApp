@@ -1,9 +1,14 @@
 package com.wipro.PR377825.springboot.services;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wipro.PR377825.springboot.entity.CurrentAccount;
+import com.wipro.PR377825.springboot.entity.Customer;
+import com.wipro.PR377825.springboot.entity.SavingAccount;
 import com.wipro.PR377825.springboot.repository.CustomerRepo;
 
 
@@ -13,6 +18,16 @@ public class DashboardService
 	@Autowired
 	CustomerRepo custRepo;	
 		
+//	findAll method for Rest API to be accessed from Postman
+	
+	public List<Customer> getAllCustomers()
+	{
+		return custRepo.findAll();	
+	}
+	
+	
+	
+//	methods for non Rest API
 	
 	public String findUserName(String ID) throws EntityNotFoundException
 	{ 
@@ -26,14 +41,17 @@ public class DashboardService
 
 	public Long[] findAccountNumber(String ID) throws EntityNotFoundException
 	{ 
-		Long savingAccNumber = custRepo.getOne(ID).getSavingAccNum();
-		Long currentAccNumber = custRepo.getOne(ID).getCurrentAccNum();
-		Long[] accNumber = {savingAccNumber,currentAccNumber};
+		SavingAccount savingAccNumber = custRepo.getOne(ID).getSaving_accountNum();
+		CurrentAccount currentAccNumber = custRepo.getOne(ID).getCurrent_accountNum();
+//		Long[] accNumber = {savingAccNumber,currentAccNumber};
 		
-		System.out.println("savingAccNumber from db in dashboard service: "+accNumber[0]);
-		System.out.println("currentAccNumber from db in dashboard service: "+accNumber[1]);
+//		System.out.println("savingAccNumber from db in dashboard service: "+accNumber[0]);
+//		System.out.println("currentAccNumber from db in dashboard service: "+accNumber[1]);
 		
-		return accNumber;
+		System.out.println("savingAccNumber from db in dashboard service: "+savingAccNumber);
+		System.out.println("currentAccNumber from db in dashboard service: "+currentAccNumber);
+		
+		return null;
 	
 	}
 }

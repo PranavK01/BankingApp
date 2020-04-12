@@ -129,54 +129,6 @@ public class DashboardController
 	}
 
 
-	@GetMapping(value = "/dashboard/AccSummary")
-	public String getAccSummary(ModelMap model)
-	{
-		customerName=dashService.findUserName(getUserID());
-		System.out.println("customerName from dashboard service: "+customerName);
-		if (currentAccNumber!=null)
-		{
-			System.out.println("fetching saving account balance");
-
-			savingBalance = enqService.findBalance(savingAccNumber);
-			System.out.println("savingBalance from enquiry service: "+savingBalance);
-			savingCurrency = enqService.findCurrency(savingAccNumber);
-			System.out.println("Currency from enquiry service: "+savingCurrency);
-
-			System.out.println("fetching current account balance");
-
-			currentBalance = enqService.findBalance(currentAccNumber);
-			System.out.println("currentBalance from enquiry service: "+currentBalance);
-			currentCurrency = enqService.findCurrency(currentAccNumber);
-			System.out.println("currentCurrency from enquiry service: "+currentCurrency);
-			
-			model.addAttribute("name",customerName);
-			model.addAttribute("savingAccNumber","Account Number: " + savingAccNumber);
-			model.addAttribute("currentAccNumber","Account Number: " + currentAccNumber);
-			model.addAttribute("savingBalance","Available balance: " + savingBalance);
-			model.addAttribute("currentBalance","Available balance: " + currentBalance);
-			model.addAttribute("saveCurrency",savingCurrency);
-			model.addAttribute("currentCurrency",currentCurrency);
-		}
-		else 
-		{
-			System.out.println("fetching saving account balance");
-
-			savingBalance = enqService.findBalance(savingAccNumber);
-			System.out.println("savingBalance from enquiry service: "+savingBalance);
-			savingCurrency = enqService.findCurrency(savingAccNumber);
-			System.out.println("Currency from enquiry service: "+savingCurrency);
-			
-			model.addAttribute("name",customerName);
-			model.addAttribute("savingAccNumber","Account Number: " + savingAccNumber);
-			model.addAttribute("savingBalance","Available balance: " + savingBalance);
-			model.addAttribute("saveCurrency",savingCurrency);
-		}
-
-		return "Dashboard";
-	}
-
-
 	//getters and setters for variables
 
 	public String getSavingCurrency() {

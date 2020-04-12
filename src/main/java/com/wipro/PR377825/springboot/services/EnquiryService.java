@@ -1,10 +1,13 @@
 package com.wipro.PR377825.springboot.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.wipro.PR377825.springboot.entity.CurrentAccount;
 import com.wipro.PR377825.springboot.entity.SavingAccount;
 import com.wipro.PR377825.springboot.repository.CurrentAccRepo;
 import com.wipro.PR377825.springboot.repository.SavingAccRepo;
@@ -16,6 +19,36 @@ public class EnquiryService {
 	SavingAccRepo saveRepo;
 	@Autowired
 	CurrentAccRepo currentRepo;
+	
+	// methods for Rest APIs to be accessed from Postman
+	
+	public List<SavingAccount> getAllSavingAccounts()
+	{
+		return saveRepo.findAll();	
+	}
+	
+	public List<CurrentAccount> getAllCurrentAccounts()
+	{
+		return currentRepo.findAll();	
+	}
+	
+	public Optional<SavingAccount> findByAccountNumber1(long ID)
+	{ 
+		Optional<SavingAccount> accountNum = saveRepo.findById(ID);
+
+		return accountNum;
+	
+	}
+
+	public Optional<CurrentAccount> findByAccountNumber2(long ID)
+	{ 
+		Optional<CurrentAccount> accountNum = currentRepo.findById(ID);
+
+		return accountNum;
+	
+	}
+	
+	// methods for non Rest APIs 
 	
 	public double findBalance(long ID) throws EntityNotFoundException
 	{ 

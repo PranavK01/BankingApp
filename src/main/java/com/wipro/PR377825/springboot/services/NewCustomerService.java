@@ -40,13 +40,13 @@ public class NewCustomerService
 
 	}
 
-	public String checkEmail(String email) throws EntityNotFoundException
-	{ 
-		List<Customer> obj = custRepo.findAll();
-		String result = obj.toString();
-		System.out.println("result is: "+result);
-		return null;
-	}
+//	public String checkEmail(String email) throws EntityNotFoundException
+//	{ 
+//		List<Customer> obj = custRepo.findAll();
+//		String result = obj.toString();
+//		System.out.println("result is: "+result);
+//		return null;
+//	}
 
 	public String create(String a, String b, String c, String d, String e, String f, String g)
 	{
@@ -54,10 +54,10 @@ public class NewCustomerService
 
 		if (g.equals("Yes"))
 		{
-			SavingAccount saveObj = new SavingAccount("Saving", 10000.00, "INR", "Active", e);
+			SavingAccount saveObj = new SavingAccount("Saving", 10000.00, "INR", "Active");
 			saveRepo.save(saveObj);
 
-			CurrentAccount saveObj2 = new CurrentAccount("Current", 1000.00, "INR", "Active", e);
+			CurrentAccount saveObj2 = new CurrentAccount("Current", 1000.00, "INR", "Active");
 			saveRepo2.save(saveObj2);
 
 			savingAccountNum = saveObj.getAccNumber();
@@ -66,18 +66,18 @@ public class NewCustomerService
 			currentAccountNum = saveObj2.getAccNumber();
 			System.out.println("Account number after saving in new customer service: "+currentAccountNum);
 
-			Customer DBobj = new Customer(e, f, a, b, c, d, currentAccountNum, savingAccountNum);
+			Customer DBobj = new Customer(e, f, a, b, c, d);
 			custRepo.save(DBobj);
 		}
 		else
 		{
-			SavingAccount saveObj = new SavingAccount("Saving", 10000.00, "INR", "Active", e);
+			SavingAccount saveObj = new SavingAccount("Saving", 10000.00, "INR", "Active");
 			saveRepo.save(saveObj);
 
 			savingAccountNum = saveObj.getAccNumber();
 			System.out.println("Account number after saving in new customer service: "+savingAccountNum);
 
-			Customer obj = new Customer(e, f, a, b, c, d,null, savingAccountNum);
+			Customer obj = new Customer(e, f, a, b, c, d);
 			custRepo.save(obj);
 		}			
 

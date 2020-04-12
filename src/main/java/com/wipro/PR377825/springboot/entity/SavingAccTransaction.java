@@ -22,26 +22,27 @@ public class SavingAccTransaction
 	@Column(name="description")
 	private String description;
 
-	@Column(name="amount")
+	@Column(name="amount", nullable = false)
 	private double Amount;
 	
-	@Column(name="last_statement")
+	@Column(name="last_statement", nullable = false)
 	private double previousBal;
 
-	@Column(name="available_balance")
+	@Column(name="available_balance", nullable = false)
 	private double availableBalance;
 
-	@Column(name="date")
+	@Column(name="date", nullable = false)
 	private Date dateTime;
 
-	@Column(name = "status")
+	@Column(name = "status", nullable = false)
 	private String status;
 
 	@Column(name = "transfer_type")
 	private String type;
-
-	@Column(name = "account_number")
+	
+	@Column(name = "account_number", nullable = false)
 	private long accNumber;
+	
 
 	//	@ManyToOne
 	//	@JoinColumn(name = "account_number")

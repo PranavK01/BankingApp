@@ -12,8 +12,8 @@
 	</div>
 
 	<div align="left">
-		<a href="/dashboard/AccSummary">Account Summary</a> <br>
 		<p>Account Information</p>
+		<hr>
 		<a href="/dashboard/SavingAccountInfo">Saving Account</a> <br> <a
 			href="/dashboard/CurrentAccountInfo">Current Account</a> <br>
 		<p>Fund Transfer</p>
@@ -22,17 +22,15 @@
 	</div>
 
 	<div align="center">
-		<button onclick="myFunction()">Saving Account</button>
+		<h3>Saving Account</h3>
 		<p>${savingAccNumber}</p>
 		<p>${savingBalance} ${saveCurrency}</p>
-		<p id="account" align="center"></p>
 	</div>
-
+	<hr>
 	<div align="center">
-		<button onclick="myFunction()">Current Account</button>
+		<h3>Current Account</h3>
 		<p>${currentAccNumber}</p>
 		<p>${currentBalance} ${currentCurrency}</p>
-		<p id="account" align="center"></p>
 	</div>
 
 </body>

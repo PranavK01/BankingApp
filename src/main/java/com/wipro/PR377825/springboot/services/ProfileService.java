@@ -1,5 +1,7 @@
 package com.wipro.PR377825.springboot.services;
 
+import java.util.Optional;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,35 @@ public class ProfileService
 	@Autowired
 	CustomerRepo custRepo;
 
+//	method for Rest API to be accessed from Postman
+	
+	public Customer getProfileByPhone(String phone) throws EntityNotFoundException
+	{
+		Customer profile = custRepo.findByPhone(phone);
+		
+//		String fname = custRepo.getOne(ID).getFirstName();
+//		String lname = custRepo.getOne(ID).getLastName();
+//		String phone = custRepo.getOne(ID).getPhone();
+//		String email = custRepo.getOne(ID).getEmail();
+//
+//		String detail[] = {fname, lname, phone, email};
+		return profile;
+	}
+	
+	public Customer updateProfileById(String ID, Customer obj)
+	{
+		Optional<Customer> userId = custRepo.findById(ID);
+		if (userId.isPresent())
+		{
+			obj.setUserId(ID);
+			return custRepo.save(obj);
+		}
+		return null;
+	}
+	
 
+//	methods for non Rest API
+	
 	public String[] getProfileDetails(String ID) throws EntityNotFoundException
 	{
 		String fname = custRepo.getOne(ID).getFirstName();
