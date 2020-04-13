@@ -22,7 +22,7 @@ public class LoginService
 		if(Userid.isPresent())
 		{
 			String userID = custRepo.getOne(ID).getUserId();
-			System.out.println("userID from Db in getID function: "+Userid);
+			System.out.println("userID from Db in getID function: "+userID);
 			return userID;
 		}
 		return null;		

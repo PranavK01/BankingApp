@@ -10,16 +10,11 @@
 		Select Account: 
 		<select name="fromAcc" required>
 			<option></option>
-			<option>${fromSavingAcc}</option>
-			<option>${fromCurrentAcc}</option>
+			<option>${fromAcc}</option>
 		</select>
 		<br>
 		Beneficiary Account:
-		<select name="toAcc" required>
-			<option></option>
-			<option>${fromSavingAcc}</option>
-			<option>${fromCurrentAcc}</option>
-		</select>
+		<input type="text" name="toAcc" required></input>
 		<br>
 		Amount:
 		<input type="text" name="amount" required></input>

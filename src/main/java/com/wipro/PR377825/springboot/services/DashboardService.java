@@ -10,14 +10,20 @@ import org.springframework.stereotype.Service;
 import com.wipro.PR377825.springboot.entity.CurrentAccount;
 import com.wipro.PR377825.springboot.entity.Customer;
 import com.wipro.PR377825.springboot.entity.SavingAccount;
+import com.wipro.PR377825.springboot.repository.CurrentAccRepo;
 import com.wipro.PR377825.springboot.repository.CustomerRepo;
+import com.wipro.PR377825.springboot.repository.SavingAccRepo;
 
 
 @Service
 public class DashboardService 
 {
 	@Autowired
-	CustomerRepo custRepo;	
+	CustomerRepo custRepo;
+	@Autowired
+	SavingAccRepo saveRepo;
+	@Autowired
+	CurrentAccRepo currentRepo;
 		
 //	findAll method for Rest API to be tested from Postman
 	
@@ -56,19 +62,44 @@ public class DashboardService
 	
 	}
 
-	public Long[] findAccountNumber(String ID) throws EntityNotFoundException
-	{ 
-		SavingAccount savingAccNumber = custRepo.getOne(ID).getSaving_accountNum();
-		CurrentAccount currentAccNumber = custRepo.getOne(ID).getCurrent_accountNum();
-//		Long[] accNumber = {savingAccNumber,currentAccNumber};
-		
-//		System.out.println("savingAccNumber from db in dashboard service: "+accNumber[0]);
-//		System.out.println("currentAccNumber from db in dashboard service: "+accNumber[1]);
-		
-		System.out.println("savingAccNumber from db in dashboard service: "+savingAccNumber);
-		System.out.println("currentAccNumber from db in dashboard service: "+currentAccNumber);
-		
-		return null;
 	
+	public long findAccountNumber(String ID)
+	{ 
+		long accNum;
+		
+		System.out.println("inside findAccNumber in dash service, checking saving account table");
+		Optional<SavingAccount> DBobj = saveRepo.findOne(SavingAccount<findAccType(ID)>);
+		
+		System.out.println("DBobj: " + DBobj);
+		if (DBobj != null)
+		{
+			accNum = DBobj.getAccNumber();
+			System.out.println("accNum from db in dashboard service: "+accNum);		
+		}
+		else
+		{
+			System.out.println("checking in current account table");
+			CurrentAccount obj = currentRepo.findByFKuserID(ID);
+			
+			accNum = obj.getAccNumber();
+			System.out.println("accNum from db in dashboard service: "+accNum);
+		}		
+		return accNum;
 	}
+	
+	public String findAccType(long accNumber)
+	{
+		String type = "";
+		Optional<SavingAccount> obj = saveRepo.findById(accNumber);
+		if (obj.isPresent())
+		{
+			type = saveRepo.getOne(accNumber).getAccountType();
+		}
+		else 
+		{
+			type = currentRepo.getOne(accNumber).getAccountType();			
+		}
+		return type;
+	}
+	
 }

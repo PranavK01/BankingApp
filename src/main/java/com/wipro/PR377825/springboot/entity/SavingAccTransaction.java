@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,7 +26,7 @@ public class SavingAccTransaction
 
 	@Column(name="amount", nullable = false)
 	private double Amount;
-	
+
 	@Column(name="last_statement", nullable = false)
 	private double previousBal;
 
@@ -37,39 +39,26 @@ public class SavingAccTransaction
 	@Column(name = "status", nullable = false)
 	private String status;
 
-	@Column(name = "transfer_type")
-	private String type;
-	
-	@Column(name = "account_number", nullable = false)
-	private long accNumber;
-	
 
-	//	@ManyToOne
-	//	@JoinColumn(name = "account_number")
-	//	private SavingAccount savingAccNumber;
+	@ManyToOne
+	@JoinColumn(name = "account_number", nullable = false)
+	private SavingAccount savingAccNumber;
 
 
 	public SavingAccTransaction() {   }
 
-	public SavingAccTransaction(String description, double amount, double availableBalance, double previousBal, Date dateTime,
-			String status, String type, long accNumber) {
+
+	public SavingAccTransaction(String description, double amount, double previousBal, double availableBalance,
+			Date dateTime, String status) {
 		super();
 		this.description = description;
 		Amount = amount;
+		this.previousBal = previousBal;
 		this.availableBalance = availableBalance;
 		this.dateTime = dateTime;
 		this.status = status;
-		this.type = type;
-		this.accNumber = accNumber;
-		this.previousBal = previousBal;
 	}
 
-	@Override
-	public String toString() {
-		return "CurrentAccTransaction [id=" + id + ", description=" + description + ", Amount=" + Amount
-				+ ", previousBal=" + previousBal + ", availableBalance=" + availableBalance + ", dateTime=" + dateTime
-				+ ", status=" + status + ", type=" + type + ", accNumber=" + accNumber + "]";
-	}
 
 	public Long getId() {
 		return id;
@@ -119,22 +108,7 @@ public class SavingAccTransaction
 		this.status = status;
 	}
 
-	public String getType() {
-		return type;
-	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public long getAccNumber() {
-		return accNumber;
-	}
-
-	public void setAccNumber(long accNumber) {
-		this.accNumber = accNumber;
-	}
-	
 	public double getPreviousBal() {
 		return previousBal;
 	}
@@ -142,4 +116,16 @@ public class SavingAccTransaction
 	public void setPreviousBal(double previousBal) {
 		this.previousBal = previousBal;
 	}
+
+
+	public SavingAccount getSavingAccNumber() {
+		return savingAccNumber;
+	}
+
+
+	public void setSavingAccNumber(SavingAccount savingAccNumber) {
+		this.savingAccNumber = savingAccNumber;
+	}
+
+
 }

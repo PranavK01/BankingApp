@@ -16,9 +16,8 @@
 			<br>
 			<a href="/forgotPassword">${back3}</a>
 			<br>
-			<a href="/dashboard/FundTransfer/inter">${back4}</a>
-			<br>			
-			<a href="/dashboard/FundTransfer/other">${back5}</a>
+			<a href="/dashboard/FundTransfer">${back4}</a>
+			
 	</div>
 	
 </body>

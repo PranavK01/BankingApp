@@ -23,7 +23,7 @@ public class FundTransferService
 //	non Rest API method
 	public long checkAccNumber(long ID) throws EntityNotFoundException
 	{ 
-		long accNumber=0;
+		long accNumber = 0;
 		Optional<SavingAccount> accountNum1 = saveRepo.findById(ID);
 		Optional<CurrentAccount> accountNum2 = currentRepo.findById(ID);
 		if (accountNum1.isPresent())

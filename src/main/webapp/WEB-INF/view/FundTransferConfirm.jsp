@@ -19,6 +19,8 @@
 	</div>
 	
 	<div align="left">
+			<a href="/dashboard/FundTransfer">Back</a>
+			<br>
 			<a href="/dashboard/AccSummary">Home</a>
 	</div>
 </body>

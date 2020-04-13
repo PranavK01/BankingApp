@@ -3,9 +3,6 @@ package com.wipro.PR377825.springboot.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-//import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -32,16 +29,6 @@ public class Customer
     
     @Column(name = "contact_num", nullable = false, unique = true)
     private String phone;
-
- // ****  setting up one to one mapping to saving and current entity  ****
-    
-    @OneToOne
-//    @JoinColumn(name = "saving_account_num")
-    private SavingAccount saving_accountNum;
-    
-    @OneToOne
-//    @JoinColumn(name = "current_account_num")
-    private CurrentAccount current_accountNum;
 
   
 
@@ -110,20 +97,5 @@ public class Customer
 		this.phone = phone;
 	}
 
-	public SavingAccount getSaving_accountNum() {
-		return saving_accountNum;
-	}
-
-	public void setSaving_accountNum(SavingAccount saving_accountNum) {
-		this.saving_accountNum = saving_accountNum;
-	}
-
-	public CurrentAccount getCurrent_accountNum() {
-		return current_accountNum;
-	}
-
-	public void setCurrent_accountNum(CurrentAccount current_accountNum) {
-		this.current_accountNum = current_accountNum;
-	}
 
 }

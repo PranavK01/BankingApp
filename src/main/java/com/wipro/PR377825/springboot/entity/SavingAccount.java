@@ -1,15 +1,12 @@
 package com.wipro.PR377825.springboot.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -37,6 +34,11 @@ public class SavingAccount
 
 		@Column(name="status", nullable = false) 
 		private String status;
+		
+		@OneToOne
+		@JoinColumn(name = "user_id")
+		private Customer FKuserID;
+		
 
 
 
@@ -48,21 +50,19 @@ public class SavingAccount
 		// defining constructors 
 		public SavingAccount() {		}
 
-		public SavingAccount(String accountType, double balance, String currency, String status) {
+		public SavingAccount(String accountType, double balance, String currency, String status, Customer fKuserID) {
 			super();
 			this.accountType = accountType;
 			this.balance = balance;
 			this.currency = currency;
 			this.status = status;
+			FKuserID = fKuserID;
 		}
-
-
-		// defining getters and setters
 
 		public Long getAccNumber() {
 			return accNumber;
 		}
-
+		
 		public void setAccNumber(Long accNumber) {
 			this.accNumber = accNumber;
 		}
@@ -74,11 +74,11 @@ public class SavingAccount
 		public void setAccountType(String accountType) {
 			this.accountType = accountType;
 		}
-
+		
 		public double getBalance() {
 			return balance;
 		}
-
+		
 		public void setBalance(double balance) {
 			this.balance = balance;
 		}
@@ -94,9 +94,17 @@ public class SavingAccount
 		public String getStatus() {
 			return status;
 		}
-
+		
 		public void setStatus(String status) {
 			this.status = status;
 		}
-
+		
+		public Customer getFKuserID() {
+			return FKuserID;
+		}
+		
+		public void setFKuserID(Customer fKuserID) {
+			FKuserID = fKuserID;
+		}
+	
 	}

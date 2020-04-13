@@ -27,16 +27,16 @@ public class AccountInfoController
 	
 	String field="";
 	
-	@GetMapping(value = "/dashboard/SavingAccountInfo")
+	@GetMapping(value = "/dashboard/AccountInfo")
 	public String getSavingAccountInfo(ModelMap model)
 	{
-		long accountNum = dashCtrl.getSavingAccNumber();
+		long accountNum = dashCtrl.getAccountnumber();
 		System.out.println("accountNum from dashboard controller:"+accountNum);
 		String customerName = dashCtrl.getCustomerName();
 		System.out.println("Username from dashboard controller:"+customerName);
-		double Balance = dashCtrl.getSavingBalance();
+		double Balance = dashCtrl.getBalance();
 		System.out.println("Balance from dashboard controller:"+Balance);
-		String Currency = dashCtrl.getSavingCurrency();
+		String Currency = dashCtrl.getCurrency();
 		System.out.println("Currency from dashboard controller:"+Currency);
 		String Status = enqService.findStatus(accountNum);
 		System.out.println("Status from enquiry service: "+Status);
@@ -51,28 +51,28 @@ public class AccountInfoController
 	}
 	
 	
-	@GetMapping(value = "/dashboard/CurrentAccountInfo")
-	public String getCurrentAccountInfo(ModelMap model)
-	{
-		long accountNum = dashCtrl.getCurrentAccNumber();
-		System.out.println("accountNum from dashboard controller:"+accountNum);
-		String customerName = dashCtrl.getCustomerName();
-		System.out.println("Username from dashboard controller:"+customerName);
-		double Balance = dashCtrl.getCurrentBalance();
-		System.out.println("Balance from dashboard controller:"+Balance);
-		String Currency = dashCtrl.getCurrentCurrency();
-		System.out.println("Currency from dashboard controller:"+Currency);
-		String Status = enqService.findStatus(accountNum);
-		System.out.println("Status from enquiry service: "+Status);
-				
-		model.addAttribute("name",customerName);
-		model.addAttribute("AccNumber",accountNum);
-		model.addAttribute("Balance",Balance);
-		model.addAttribute("Currency",Currency);
-		model.addAttribute("Status",Status);
-		
-		return "Enquiry";
-	}
+//	@GetMapping(value = "/dashboard/CurrentAccountInfo")
+//	public String getCurrentAccountInfo(ModelMap model)
+//	{
+//		long accountNum = dashCtrl.g();et
+//		System.out.println("accountNum from dashboard controller:"+accountNum);
+//		String customerName = dashCtrl.getCustomerName();
+//		System.out.println("Username from dashboard controller:"+customerName);
+//		double Balance = dashCtrl.getCurrentBalance();
+//		System.out.println("Balance from dashboard controller:"+Balance);
+//		String Currency = dashCtrl.getCurrentCurrency();
+//		System.out.println("Currency from dashboard controller:"+Currency);
+//		String Status = enqService.findStatus(accountNum);
+//		System.out.println("Status from enquiry service: "+Status);
+//				
+//		model.addAttribute("name",customerName);
+//		model.addAttribute("AccNumber",accountNum);
+//		model.addAttribute("Balance",Balance);
+//		model.addAttribute("Currency",Currency);
+//		model.addAttribute("Status",Status);
+//		
+//		return "Enquiry";
+//	}
 	
 	@GetMapping(value = "/dashboard/Profile")
 	public String getProfileInfo(ModelMap model)

@@ -12,27 +12,20 @@
 	</div>
 
 	<div align="left">
-		<p>Account Information</p>
+		
 		<hr>
-		<a href="/dashboard/SavingAccountInfo">Saving Account</a> <br> <a
-			href="/dashboard/CurrentAccountInfo">Current Account</a> <br>
-		<p>Fund Transfer</p>
-		<a href="/dashboard/FundTransfer/inter">To Own Account</a> <br> <a
-			href="/dashboard/FundTransfer/other">Other Account</a>
+		<a href="/dashboard/AccountInfo">Account Information</a> <br> 
+		
+		<a href="/dashboard/FundTransfer">Fund Transfer</a> <br> 
+	
 	</div>
-
+<hr>
 	<div align="center">
-		<h3>Saving Account</h3>
-		<p>${savingAccNumber}</p>
-		<p>${savingBalance} ${saveCurrency}</p>
+		<h3>${type}</h3>
+		<p>${AccNumber}</p>
+		<p>${Balance} ${Currency}</p>
 	</div>
-	<hr>
-	<div align="center">
-		<h3>Current Account</h3>
-		<p>${currentAccNumber}</p>
-		<p>${currentBalance} ${currentCurrency}</p>
-	</div>
-
+	
 </body>
 </html>
 

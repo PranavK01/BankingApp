@@ -1,6 +1,5 @@
 package com.wipro.PR377825.springboot.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -41,8 +40,9 @@ public class NewCustomerService
 
 	public String checkEmail(String email) throws EntityNotFoundException
 	{ 
-		List<Customer> obj = custRepo.findAllEmail();
-		if (obj.contains(email))
+		System.out.println("Entered checkEmail");
+		Customer obj = custRepo.findByEmail(email);
+		if (obj!=null)
 		{
 			return email;
 		}
@@ -52,8 +52,8 @@ public class NewCustomerService
 	
 	public String checkContactNumber(String phone) throws EntityNotFoundException
 	{ 
-		List<Customer> obj = custRepo.findAllContact();
-		if (obj.contains(phone))
+		Customer obj = custRepo.findByPhone(phone);
+		if (obj != null)
 		{
 			return phone;
 		}
@@ -65,33 +65,31 @@ public class NewCustomerService
 	{
 		long currentAccountNum, savingAccountNum;
 
-		if (g.equals("Yes"))
+		if (g.equals("Current"))
 		{
-			SavingAccount saveObj = new SavingAccount("Saving", 10000.00, "INR", "Active");
-			saveRepo.save(saveObj);
-
-			CurrentAccount saveObj2 = new CurrentAccount("Current", 1000.00, "INR", "Active");
+			Customer DBobj = new Customer(e, f, a, b, c, d);
+			custRepo.save(DBobj);
+			
+			CurrentAccount saveObj2 = new CurrentAccount("Current", 1000.00, "INR", "Active", DBobj);
 			saveRepo2.save(saveObj2);
-
-			savingAccountNum = saveObj.getAccNumber();
-			System.out.println("Account number after saving in new customer service: "+savingAccountNum);
 
 			currentAccountNum = saveObj2.getAccNumber();
 			System.out.println("Account number after saving in new customer service: "+currentAccountNum);
 
-			Customer DBobj = new Customer(e, f, a, b, c, d);
-			custRepo.save(DBobj);
+			
 		}
 		else
 		{
-			SavingAccount saveObj = new SavingAccount("Saving", 10000.00, "INR", "Active");
+			Customer DBobj = new Customer(e, f, a, b, c, d);
+			custRepo.save(DBobj);
+			
+			SavingAccount saveObj = new SavingAccount("Saving", 10000.00, "INR", "Active", DBobj);
 			saveRepo.save(saveObj);
 
 			savingAccountNum = saveObj.getAccNumber();
 			System.out.println("Account number after saving in new customer service: "+savingAccountNum);
 
-			Customer obj = new Customer(e, f, a, b, c, d);
-			custRepo.save(obj);
+			
 		}			
 
 		return null;

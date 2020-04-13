@@ -1,7 +1,6 @@
 package com.wipro.PR377825.springboot.services;
 
 import java.util.Date;
-import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -35,49 +34,50 @@ public class CreditService
 	CurrentTransactionRepo currentTranRepo;
 
 
-	public String updateDetails(long accNumber, double closingBalance, String remark, double amt, double balance, String type) throws EntityNotFoundException
+	public String updateDetails(long accNumber, double closingBalance, String remark, double amt, double balance) throws EntityNotFoundException
 	{ 
-		Optional<SavingAccount> accountNum = saveRepo.findById(accNumber);
-		if (accountNum.isPresent())
+		SavingAccount saveObj = saveRepo.findById(accNumber).get();
+		if (saveObj != null)
 		{
 			Date date = new Date();
 			
-			SavingAccTransaction saveObj = new SavingAccTransaction();
-			saveObj.setAccNumber(accNumber);
-			saveObj.setAvailableBalance(closingBalance);
-			saveObj.setDateTime(date);
-			saveObj.setAmount(amt);
-			saveObj.setPreviousBal(balance);
-			saveObj.setDescription(remark);
-			saveObj.setStatus("Credit Success");
-			saveObj.setType(type);
+//			adding entries in saving transaction table
+			SavingAccTransaction saveTranObj = new SavingAccTransaction();
+			saveTranObj.setSavingAccNumber(saveObj);
+			saveTranObj.setAvailableBalance(closingBalance);
+			saveTranObj.setDateTime(date);
+			saveTranObj.setAmount(amt);
+			saveTranObj.setPreviousBal(balance);
+			saveTranObj.setDescription(remark);
+			saveTranObj.setStatus("Credit Success");
+			
+			saveTranRepo.save(saveTranObj);
 
-			saveTranRepo.save(saveObj);
-
-			SavingAccount obj = saveRepo.findById(accNumber).get();
-			obj.setBalance(closingBalance);
-			saveRepo.save(obj);
+//			updating entry in saving account table
+			saveObj.setBalance(closingBalance);
+			saveRepo.save(saveObj);
 
 		}
 		else
 		{
 			Date date = new Date();
+			CurrentAccount currObj = currentRepo.findById(accNumber).get();
 			
+//			adding entries in current transaction table
 			CurrentAccTransaction currentObj = new CurrentAccTransaction();
-			currentObj.setAccNumber(accNumber);
+			currentObj.setCurrentaccNumber(currObj);
 			currentObj.setAvailableBalance(closingBalance);
 			currentObj.setDateTime(date);
 			currentObj.setAmount(amt);
 			currentObj.setPreviousBal(balance);
 			currentObj.setDescription(remark);
 			currentObj.setStatus("Credit Success");
-			currentObj.setType(type);
-
+			
 			currentTranRepo.save(currentObj);
 			
-			CurrentAccount obj = currentRepo.findById(accNumber).get();
-			obj.setBalance(closingBalance);
-			currentRepo.save(obj);
+//			updating balance in current account table
+			currObj.setBalance(closingBalance);
+			currentRepo.save(currObj);
 		}		
 
 		return null;		

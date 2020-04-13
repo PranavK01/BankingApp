@@ -32,32 +32,17 @@ public class FundTransferController
 
 	private long fromAcc,toAcc;
 	private double amt;
-	private String remark, type;
+	private String remark;
 
 
-	@GetMapping("/dashboard/FundTransfer/inter")
+	@GetMapping("/dashboard/FundTransfer")
 	public String getInterFund(Model model)
 	{
-		type = "Inter Account transfer";
-		System.out.println("type: "+type);
+
 		model.addAttribute("name",dashCrtl.getCustomerName());
-		model.addAttribute("fromSavingAcc",dashCrtl.getSavingAccNumber());
-		model.addAttribute("fromCurrentAcc",dashCrtl.getCurrentAccNumber());
+		model.addAttribute("fromAcc",dashCrtl.getAccountnumber());
 
-		return "InterFundTransferForm";
-	}
-
-
-	@GetMapping("/dashboard/FundTransfer/other")
-	public String getOtherFund(Model model)
-	{
-		type = "Other Account transfer";
-		System.out.println("type: "+type);
-		model.addAttribute("name",dashCrtl.getCustomerName());
-		model.addAttribute("fromSavingAcc",dashCrtl.getSavingAccNumber());
-		model.addAttribute("fromCurrentAcc",dashCrtl.getCurrentAccNumber());
-
-		return "OtherFundTransferForm";
+		return "FundTransferForm";
 	}
 
 
@@ -102,37 +87,22 @@ public class FundTransferController
 						}
 						else
 						{
-							if (type == "Inter Account transfer")
-							{
-								model.addAttribute("name",dashCrtl.getCustomerName());
-								model.addAttribute("msg","User does not have enough balance to transfer funds");
-								model.addAttribute("back4","Back");
-							}
-							else 
-							{
-								model.addAttribute("name",dashCrtl.getCustomerName());
-								model.addAttribute("msg","User does not have enough balance to transfer funds");
-								model.addAttribute("back5","Back");
-							}
+
+							model.addAttribute("name",dashCrtl.getCustomerName());
+							model.addAttribute("msg","User does not have enough balance to transfer funds");
+							model.addAttribute("back4","Back");
 
 							return "Acknowledgement";
+
 						}
 					}
 
 					else
 					{
-						if (type == "Inter Account transfer")
-						{
-							model.addAttribute("name",dashCrtl.getCustomerName());
-							model.addAttribute("msg","Beneficiary account is not active");
-							model.addAttribute("back4","Back");
-						}
-						else 
-						{
-							model.addAttribute("name",dashCrtl.getCustomerName());
-							model.addAttribute("msg","Beneficiary account is not active");
-							model.addAttribute("back5","Back");
-						}
+
+						model.addAttribute("name",dashCrtl.getCustomerName());
+						model.addAttribute("msg","Beneficiary account is not active");
+						model.addAttribute("back4","Back");
 
 						return "Acknowledgement";
 					}
@@ -140,18 +110,9 @@ public class FundTransferController
 
 				else
 				{
-					if (type == "Inter Account transfer")
-					{
-						model.addAttribute("name",dashCrtl.getCustomerName());
-						model.addAttribute("msg","Beneficiary account does not exists");
-						model.addAttribute("back4","Back");
-					}
-					else 
-					{
-						model.addAttribute("name",dashCrtl.getCustomerName());
-						model.addAttribute("msg","Beneficiary account does not exists");
-						model.addAttribute("back5","Back");
-					}
+					model.addAttribute("name",dashCrtl.getCustomerName());
+					model.addAttribute("msg","Beneficiary account does not exists");
+					model.addAttribute("back4","Back");
 
 					return "Acknowledgement";
 				}
@@ -159,18 +120,9 @@ public class FundTransferController
 
 			else
 			{
-				if (type == "Inter Account transfer")
-				{
-					model.addAttribute("name",dashCrtl.getCustomerName());
-					model.addAttribute("msg","Funds can't be transfered from and to same account");
-					model.addAttribute("back4","Back");
-				}
-				else 
-				{
-					model.addAttribute("name",dashCrtl.getCustomerName());
-					model.addAttribute("msg","Funds can't be transfered from and to same account");
-					model.addAttribute("back5","Back");
-				}
+				model.addAttribute("name",dashCrtl.getCustomerName());
+				model.addAttribute("msg","Funds can't be transfered from and to same account");
+				model.addAttribute("back4","Back");
 
 				return "Acknowledgement";
 
@@ -198,7 +150,7 @@ public class FundTransferController
 			closingBal = balance - amt;
 			System.out.println("closing balance after debit: "+closingBal);
 
-			debitService.updateDetails(fromAcc, closingBal, remark, amt, balance, type);
+			debitService.updateDetails(fromAcc, closingBal, remark, amt, balance);
 			System.out.println("account " + fromAcc + " has been debited successfully");
 
 
@@ -209,7 +161,7 @@ public class FundTransferController
 			closingBal = balance + amt;
 			System.out.println("closing balance after debit: "+closingBal);
 
-			creditService.updateDetails(toAcc, closingBal, remark, amt, balance, type);
+			creditService.updateDetails(toAcc, closingBal, remark, amt, balance);
 			System.out.println("account " + toAcc + " has been credited successfully");
 
 			model.addAttribute("name",dashCrtl.getCustomerName());

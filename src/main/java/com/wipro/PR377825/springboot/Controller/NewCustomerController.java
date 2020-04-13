@@ -46,21 +46,24 @@ public class NewCustomerController
 		String password = HTMLobj.getPassword();
 		System.out.println("Password from HTML input:" + password);
 
-		String currentAcc = HTMLobj.getCurrentAcc();
-		System.out.println("Is current account needed: " + currentAcc);
+		String accType = HTMLobj.getCurrentAcc();
+		System.out.println("Is current account needed: " + accType);
 
+		
 		try 
 		{
 			String userId = custService.checkUserID(userID);
 			if (userId == null)
 			{
+				System.out.println("Entered UserId is null");
 				String Email = custService.checkEmail(email);
 				if (Email == null)
 				{
+					System.out.println("Entered Email is null");
 					String phone = custService.checkContactNumber(contact);
 					if (phone == null)
 					{
-						custService.addNewCustomer(firstName, lastName, email, contact, userID, password, currentAcc);			
+						custService.addNewCustomer(firstName, lastName, email, contact, userID, password, accType);			
 
 
 						model.addAttribute("name","to Bank");

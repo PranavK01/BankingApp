@@ -16,11 +16,11 @@
 		<input type="text" name="userId" required></input><br>
 		Password:
 		<input type="password" name="password" required></input><br>
-		Current Account: 
+		Account Type: 
 		<select name="currentAcc" required>
 			<option></option>
-			<option>Yes</option>
-			<option>No</option>
+			<option>Saving</option>
+			<option>Current</option>
 		</select>
 		<br>
 		<input type="submit" value="Sign Up"></input>

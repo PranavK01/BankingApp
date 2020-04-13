@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,8 +16,8 @@ import javax.persistence.Table;
 public class CurrentAccTransaction 
 {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
 
 	@Column(name="description")
@@ -23,7 +25,7 @@ public class CurrentAccTransaction
 
 	@Column(name="amount", nullable = false)
 	private double Amount;
-	
+
 	@Column(name="last_statement", nullable = false)
 	private double previousBal;
 
@@ -36,49 +38,28 @@ public class CurrentAccTransaction
 	@Column(name = "status", nullable = false)
 	private String status;
 
-	@Column(name = "transfer_type")
-	private String type;
-	
-	@Column(name = "account_number", nullable = false)
-	private long accNumber;
-	
+	@ManyToOne
+	@JoinColumn(name = "account_number", nullable = false)
+	private CurrentAccount currentaccNumber;
 
-//	@ManyToOne
-//	@JoinColumn(name = "account_number")
-//	private CurrentAccount currentAccNumber;
-	
+
+	//	@ManyToOne
+	//	@JoinColumn(name = "account_number")
+	//	private CurrentAccount currentAccNumber;
+
 	public CurrentAccTransaction() {  	}
-	
+
 	public CurrentAccTransaction(String description, double amount, double availableBalance, double previousBal, Date dateTime,
-			String status, String type, long accNumber) {
+			String status) {
 		super();
 		this.description = description;
 		Amount = amount;
 		this.availableBalance = availableBalance;
 		this.dateTime = dateTime;
 		this.status = status;
-		this.type = type;
-		this.accNumber = accNumber;
 		this.previousBal = previousBal;
 	}
-	
-	
-	
-	
-//	public CurrentAccount getcurrentAccNumber() {
-//		return currentAccNumber;
-//	}
-//
-//	public void setcurrentAccNumber(CurrentAccount currentAccNumber) {
-//		this.currentAccNumber = currentAccNumber;
-//	}
 
-	@Override
-	public String toString() {
-		return "CurrentAccTransaction [id=" + id + ", description=" + description + ", Amount=" + Amount
-				+ ", previousBal=" + previousBal + ", availableBalance=" + availableBalance + ", dateTime=" + dateTime
-				+ ", status=" + status + ", type=" + type + ", accNumber=" + accNumber + "]";
-	}
 
 	public String getDescription() {
 		return description;
@@ -120,22 +101,6 @@ public class CurrentAccTransaction
 		this.status = status;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public long getAccNumber() {
-		return accNumber;
-	}
-
-	public void setAccNumber(long accNumber) {
-		this.accNumber = accNumber;
-	}
-
 	public double getPreviousBal() {
 		return previousBal;
 	}
@@ -143,5 +108,21 @@ public class CurrentAccTransaction
 	public void setPreviousBal(double previousBal) {
 		this.previousBal = previousBal;
 	}
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public CurrentAccount getCurrentaccNumber() {
+		return currentaccNumber;
+	}
+
+	public void setCurrentaccNumber(CurrentAccount currentaccNumber) {
+		this.currentaccNumber = currentaccNumber;
+	}
+
 }
