@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -43,7 +42,7 @@ public class DashboardController
 			String userID = logService.getID(UserID);
 			System.out.println("userUserID from loginService:" + userID);
 			
-			if ((userID != null) && (userID.equals(UserID)))
+			if ((userID != null))
 			{
 				System.out.println("userUserID matched");
 

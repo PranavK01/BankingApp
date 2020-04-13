@@ -35,7 +35,7 @@ public class LoginRestController
 			String userID = logService.getID(UserID);
 			//		System.out.println("userUserID from loginService:" + userID);
 
-			if ((userID != null) && (userID.equals(UserID)))
+			if ((userID != null))
 			{
 				System.out.println("UserID matched");
 

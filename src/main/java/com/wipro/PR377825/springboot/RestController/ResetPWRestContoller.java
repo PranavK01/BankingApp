@@ -1,75 +1,59 @@
 package com.wipro.PR377825.springboot.RestController;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.wipro.PR377825.springboot.HTML.ResetPwHTML;
 import com.wipro.PR377825.springboot.services.ResetPwService;
 
+@RestController
+@RequestMapping("/Rest")
 public class ResetPWRestContoller {
 	@Autowired
 	ResetPwService resetService;
 
+
 	
-	private String password;
-
-	@GetMapping("/forgotPassword")
-	public String resetPassword()
+	@PutMapping("/Reset/Password/{UserID}")
+	public ResponseEntity<String> updateProfile(@PathVariable("UserID") String ID, @RequestBody ResetPwHTML HTMLobj)
 	{
-		return "ResetPasswordForm";
-	}
-
-
-	@PostMapping(value = "/forgotPassword/Ack", produces = "application/HTML")
-	public String updatePassword(@ModelAttribute ResetPwHTML HTMLobj , BindingResult result, ModelMap model) 
-	{
-		String UserId = HTMLobj.getUserId();
-		System.out.println("UserId from resetPW form: "+UserId);
+		//		String UserId = HTMLobj.getUserId();
+		//		System.out.println("UserId from resetPW form: "+UserId);
 
 		try
 		{ 
-			String userID = resetService.getID(UserId);
+			String userID = resetService.getID(ID);
 			System.out.println("userID from resetService :"+userID);
 
-			if ((userID != null) && (userID.equals(UserId)))
+			if ((userID != null))
 			{		
 				System.out.println("userId matched");
-				setPassword(HTMLobj.getPassword());
+				String password = HTMLobj.getPassword();
 				String confirmPW = HTMLobj.getConfirmPW();
 
-				if (getPassword().equals(confirmPW))
+				if (password.equals(confirmPW))
 				{
 					System.out.println("passwords are same");
 
-					resetService.updatePassword(userID);
+					resetService.updatePassword(userID, password);
 
-					model.addAttribute("name","to Bank");
-					model.addAttribute("msg","Password has been successfully reset");
-					model.addAttribute("back1","Login");
 
-					return "Acknowledgement";					
+					return new ResponseEntity<>("Password has been reset successfully", HttpStatus.OK);
 				}
-
 				else
-				{					
-					model.addAttribute("name","to Bank");
-					model.addAttribute("msg","Password mismatch");
-					model.addAttribute("back3","Back");
-										
-					return "Acknowledgement";
+				{	
+					return new ResponseEntity<>("Passwords mismatch", HttpStatus.BAD_REQUEST);
 				}
 			}
 			else
-			{
-				model.addAttribute("name","to Bank");
-				model.addAttribute("msg","Please enter correct User ID");
-				model.addAttribute("back3","Back");
-									
-				return "Acknowledgement";
+			{	
+				return new ResponseEntity<>("Incorrect UserID", HttpStatus.BAD_REQUEST);
 			}
 		}
 		catch (Exception e)
@@ -78,16 +62,5 @@ public class ResetPWRestContoller {
 		}
 		return null;		
 	}
-
-
-	// getters and setters for variables
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}	
-
 
 }

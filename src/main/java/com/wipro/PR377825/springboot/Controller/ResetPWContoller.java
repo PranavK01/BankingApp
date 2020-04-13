@@ -19,8 +19,7 @@ public class ResetPWContoller
 	ResetPwService resetService;
 
 	
-	private String password;
-
+	
 	@GetMapping("/forgotPassword")
 	public String resetPassword()
 	{
@@ -28,6 +27,7 @@ public class ResetPWContoller
 	}
 
 
+	
 	@PostMapping(value = "/forgotPassword/Ack", produces = "application/HTML")
 	public String updatePassword(@ModelAttribute ResetPwHTML HTMLobj , BindingResult result, ModelMap model) 
 	{
@@ -42,14 +42,14 @@ public class ResetPWContoller
 			if ((userID != null) && (userID.equals(UserId)))
 			{		
 				System.out.println("userId matched");
-				setPassword(HTMLobj.getPassword());
+				String password = HTMLobj.getPassword();
 				String confirmPW = HTMLobj.getConfirmPW();
 
-				if (getPassword().equals(confirmPW))
+				if (password.equals(confirmPW))
 				{
 					System.out.println("passwords are same");
 
-					resetService.updatePassword(userID);
+					resetService.updatePassword(userID, password);
 
 					model.addAttribute("name","to Bank");
 					model.addAttribute("msg","Password has been successfully reset");
@@ -82,15 +82,4 @@ public class ResetPWContoller
 		}
 		return null;		
 	}
-
-
-	// getters and setters for variables
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}	
-
 }

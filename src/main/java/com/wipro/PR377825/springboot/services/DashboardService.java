@@ -1,6 +1,7 @@
 package com.wipro.PR377825.springboot.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,32 @@ public class DashboardService
 	@Autowired
 	CustomerRepo custRepo;	
 		
-//	findAll method for Rest API to be accessed from Postman
+//	findAll method for Rest API to be tested from Postman
 	
 	public List<Customer> getAllCustomers()
 	{
 		return custRepo.findAll();	
 	}
 	
+//	deleteByUserID method for Rest API to be tested from Postman
+	public void deleteByUserID(String ID)
+	{
+		Optional<Customer> userID = custRepo.findById(ID);
+		if (userID.isPresent())
+		{
+			custRepo.deleteById(ID);
+		}
+	}
+	
+//	deleteAll method for Rest API to be tested from Postman
+	public void deleteAllCustomers()
+	{
+		custRepo.deleteAll();
+	}
 	
 	
-//	methods for non Rest API
+	
+//	non Rest API methods
 	
 	public String findUserName(String ID) throws EntityNotFoundException
 	{ 

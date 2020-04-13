@@ -54,32 +54,45 @@ public class NewCustomerController
 			String userId = custService.checkUserID(userID);
 			if (userId == null)
 			{
-//				String Email = custService.checkEmail(email);
-//				if (Email == null)
-//				{
-				custService.create(firstName, lastName, email, contact, userID, password, currentAcc);			
+				String Email = custService.checkEmail(email);
+				if (Email == null)
+				{
+					String phone = custService.checkContactNumber(contact);
+					if (phone == null)
+					{
+						custService.addNewCustomer(firstName, lastName, email, contact, userID, password, currentAcc);			
 
-				model.addAttribute("name","to Bank");
-				model.addAttribute("msg","Customer has been successfully created");
-				model.addAttribute("back1","Login");
-				
-				return "Acknowledgement";
-//				}
-//				else
-//				{					
-//					model.addAttribute("name","to Bank");
-//					model.addAttribute("msg","Email must be unique.");
-//					model.addAttribute("back2","Back");
-//										
-//					return "Acknowledgement";
-//				}
+
+						model.addAttribute("name","to Bank");
+						model.addAttribute("msg","Customer has been successfully created");
+						model.addAttribute("back1","Login");
+
+						return "Acknowledgement";
+					}
+					else
+					{					
+						model.addAttribute("name","to Bank");
+						model.addAttribute("msg","Contact Number must be unique");
+						model.addAttribute("back2","Back");
+
+						return "Acknowledgement";
+					}
+				}
+				else
+				{					
+					model.addAttribute("name","to Bank");
+					model.addAttribute("msg","Email must be unique.");
+					model.addAttribute("back2","Back");
+
+					return "Acknowledgement";
+				}
 			}
 			else
 			{
 				model.addAttribute("name","to Bank");
 				model.addAttribute("msg","UserId already taken.");
 				model.addAttribute("back2","Back");
-				
+
 				return "Acknowledgement";
 			}
 		}

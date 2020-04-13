@@ -4,7 +4,6 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.wipro.PR377825.springboot.Controller.ResetPWContoller;
 import com.wipro.PR377825.springboot.entity.Customer;
 import com.wipro.PR377825.springboot.repository.CustomerRepo;
 
@@ -13,8 +12,7 @@ public class ResetPwService
 {
 	@Autowired
 	CustomerRepo custRepo;	
-	@Autowired
-	ResetPWContoller resetCtrl;
+	
 	
 	public String getID(String ID) throws EntityNotFoundException
 	{ 
@@ -30,11 +28,11 @@ public class ResetPwService
 			return null;		
 	}
 	
-	public String updatePassword(String Id) throws EntityNotFoundException
+	public String updatePassword(String Id, String password) throws EntityNotFoundException
 	{
 		Customer DBobj = custRepo.findById(Id).get();
-		System.out.println("Password from resetPW controller: "+resetCtrl.getPassword());
-		DBobj.setPassword(resetCtrl.getPassword());
+		System.out.println("Password from resetPW controller: "+password);
+		DBobj.setPassword(password);
 		custRepo.save(DBobj);
 		System.out.println("Password updated successfully for "+Id);
 		return null;		

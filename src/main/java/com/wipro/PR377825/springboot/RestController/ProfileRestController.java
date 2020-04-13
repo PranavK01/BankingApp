@@ -1,5 +1,8 @@
 package com.wipro.PR377825.springboot.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +25,24 @@ public class ProfileRestController
 
 
 	@GetMapping("/Profile/{phone}")
-	public ResponseEntity<Customer> getProfileInfo(@PathVariable("phone") String number)
+	public ResponseEntity<Map<String,String>> getProfileInfo(@PathVariable("phone") String number)
 	{
-
-		Customer profile = proService.getProfileByPhone(number);
-// profile data needs to be sorted
-		return new ResponseEntity<>(profile, HttpStatus.OK);
+		HashMap<String, String> map = new HashMap<>();
+		
+		String details[] = proService.getProfileDetails(number);
+		
+		String fname = details[0];
+		String lname = details[1];
+		String phone = details[2];
+		String email = details[3];
+		
+		map.put("firstName",fname);
+		map.put("lastName",lname);
+		map.put("email",email);
+		map.put("phone",phone);
+		
+		
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 

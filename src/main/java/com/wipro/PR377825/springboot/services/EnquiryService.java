@@ -20,35 +20,36 @@ public class EnquiryService {
 	@Autowired
 	CurrentAccRepo currentRepo;
 	
-	// methods for Rest APIs to be accessed from Postman
+//	getAllSavingAccounts method for Rest API to be tested from Postman
 	
 	public List<SavingAccount> getAllSavingAccounts()
 	{
 		return saveRepo.findAll();	
 	}
 	
+//	getAllCurrentAccounts method for Rest API to be tested from Postman
 	public List<CurrentAccount> getAllCurrentAccounts()
 	{
 		return currentRepo.findAll();	
 	}
 	
+//	findByAccountNumber1 method for Rest API to be tested from Postman
 	public Optional<SavingAccount> findByAccountNumber1(long ID)
 	{ 
 		Optional<SavingAccount> accountNum = saveRepo.findById(ID);
 
 		return accountNum;
-	
 	}
 
+//	findByAccountNumber2 method for Rest API to be tested from Postman
 	public Optional<CurrentAccount> findByAccountNumber2(long ID)
 	{ 
 		Optional<CurrentAccount> accountNum = currentRepo.findById(ID);
 
 		return accountNum;
-	
 	}
 	
-	// methods for non Rest APIs 
+	// non Rest API methods
 	
 	public double findBalance(long ID) throws EntityNotFoundException
 	{ 

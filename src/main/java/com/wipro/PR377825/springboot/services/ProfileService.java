@@ -16,21 +16,22 @@ public class ProfileService
 	@Autowired
 	CustomerRepo custRepo;
 
-//	method for Rest API to be accessed from Postman
+//	getProfileByPhone method for Rest API to be tested from Postman
 	
-	public Customer getProfileByPhone(String phone) throws EntityNotFoundException
+	public String[] getProfileByPhone(String phone) throws EntityNotFoundException
 	{
-		Customer profile = custRepo.findByPhone(phone);
 		
-//		String fname = custRepo.getOne(ID).getFirstName();
-//		String lname = custRepo.getOne(ID).getLastName();
-//		String phone = custRepo.getOne(ID).getPhone();
-//		String email = custRepo.getOne(ID).getEmail();
-//
-//		String detail[] = {fname, lname, phone, email};
-		return profile;
+		String fname = custRepo.findByPhone(phone).getFirstName();
+		String lname = custRepo.findByPhone(phone).getLastName();
+		String Phone = custRepo.findByPhone(phone).getPhone();
+		String email = custRepo.findByPhone(phone).getEmail();
+
+		String details[] = {fname, lname, Phone, email};
+		
+		return details;
 	}
 	
+//	updateProfileById method for Rest API to be tested from Postman
 	public Customer updateProfileById(String ID, Customer obj)
 	{
 		Optional<Customer> userId = custRepo.findById(ID);
@@ -43,7 +44,7 @@ public class ProfileService
 	}
 	
 
-//	methods for non Rest API
+//	non Rest API methods
 	
 	public String[] getProfileDetails(String ID) throws EntityNotFoundException
 	{

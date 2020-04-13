@@ -20,7 +20,7 @@ public class FundTransferService
 	@Autowired
 	CurrentAccRepo currentRepo;
 	
-	
+//	non Rest API method
 	public long checkAccNumber(long ID) throws EntityNotFoundException
 	{ 
 		long accNumber=0;

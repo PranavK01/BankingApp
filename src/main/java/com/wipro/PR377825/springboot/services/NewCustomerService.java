@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,15 +39,29 @@ public class NewCustomerService
 
 	}
 
-//	public String checkEmail(String email) throws EntityNotFoundException
-//	{ 
-//		List<Customer> obj = custRepo.findAll();
-//		String result = obj.toString();
-//		System.out.println("result is: "+result);
-//		return null;
-//	}
+	public String checkEmail(String email) throws EntityNotFoundException
+	{ 
+		List<Customer> obj = custRepo.findAllEmail();
+		if (obj.contains(email))
+		{
+			return email;
+		}
+		return null;
+	}
+	
+	
+	public String checkContactNumber(String phone) throws EntityNotFoundException
+	{ 
+		List<Customer> obj = custRepo.findAllContact();
+		if (obj.contains(phone))
+		{
+			return phone;
+		}
+		return null;
+	}
+	
 
-	public String create(String a, String b, String c, String d, String e, String f, String g)
+	public String addNewCustomer(String a, String b, String c, String d, String e, String f, String g)
 	{
 		long currentAccountNum, savingAccountNum;
 

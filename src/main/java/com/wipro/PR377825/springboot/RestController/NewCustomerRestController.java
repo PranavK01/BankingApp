@@ -1,28 +1,30 @@
 package com.wipro.PR377825.springboot.RestController;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.wipro.PR377825.springboot.HTML.NewCustomerHTML;
 import com.wipro.PR377825.springboot.services.NewCustomerService;
 
+@RestController
+@RequestMapping("/Rest")
 public class NewCustomerRestController {
 	@Autowired
 	NewCustomerService custService;
 
 
-	@GetMapping(value="/create/newCustomer/form")
-	public String displayForm()
-	{
-		return "NewCustomerForm";		
-	}
 
-	@PostMapping(value = "/create/newCustomer/ack", produces = "application/HTML")
-	public String createCustomer(@ModelAttribute NewCustomerHTML HTMLobj , BindingResult result, ModelMap model) 
+	@PostMapping("/create/newCustomer")
+	public ResponseEntity<String> createCustomer(@RequestBody NewCustomerHTML HTMLobj) 
 	{
 		String firstName = HTMLobj.getFirstName();		
 		System.out.println("firstName from HTML input:" + firstName);
@@ -50,33 +52,29 @@ public class NewCustomerRestController {
 			String userId = custService.checkUserID(userID);
 			if (userId == null)
 			{
-//				String Email = custService.checkEmail(email);
-//				if (Email == null)
-//				{
-				custService.create(firstName, lastName, email, contact, userID, password, currentAcc);			
+				String Email = custService.checkEmail(email);
+				if (Email == null)
+				{
+					String phone = custService.checkContactNumber(contact);
+					if (phone == null)
+					{
+						custService.addNewCustomer(firstName, lastName, email, contact, userID, password, currentAcc);			
 
-				model.addAttribute("name","to Bank");
-				model.addAttribute("msg","Customer has been successfully created");
-				model.addAttribute("back1","Login");
-				
-				return "Acknowledgement";
-//				}
-//				else
-//				{					
-//					model.addAttribute("name","to Bank");
-//					model.addAttribute("msg","Email must be unique.");
-//					model.addAttribute("back2","Back");
-//										
-//					return "Acknowledgement";
-//				}
+						return new ResponseEntity<String>("New Customer has been successfully created", HttpStatus.OK);
+					}
+					else 
+					{					
+						return new ResponseEntity<String>("Contact Number must be unique", HttpStatus.BAD_REQUEST);
+					}
+				}
+				else
+				{					
+					return new ResponseEntity<String>("Email must be unique", HttpStatus.BAD_REQUEST);
+				}
 			}
 			else
-			{
-				model.addAttribute("name","to Bank");
-				model.addAttribute("msg","UserId already taken.");
-				model.addAttribute("back2","Back");
-				
-				return "Acknowledgement";
+			{				
+				return new ResponseEntity<String>("UserId already taken", HttpStatus.BAD_REQUEST);
 			}
 		}
 		catch (Exception e)
