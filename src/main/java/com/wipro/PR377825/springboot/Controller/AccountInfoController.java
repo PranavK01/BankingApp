@@ -54,7 +54,8 @@ public class AccountInfoController
 	}
 
 
-
+//	Controllers for updating customer profile
+	
 	@GetMapping(value = "/dashboard/Profile")
 	public String getProfileInfo(ModelMap model)
 	{

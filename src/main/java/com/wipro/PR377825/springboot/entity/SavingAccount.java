@@ -41,12 +41,6 @@ public class SavingAccount
 		
 
 
-
-		//		// ****  setting up one to many mapping to saving and current entity  ****
-		//	    @OneToMany(mappedBy = "savingAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-		//	    private List<CurrentAccTransaction> currentTransactionList;
-
-
 		// defining constructors 
 		public SavingAccount() {		}
 

@@ -22,7 +22,7 @@ public class NewCustomerService
 	@Autowired
 	SavingAccRepo saveRepo;
 	@Autowired
-	CurrentAccRepo saveRepo2;
+	CurrentAccRepo currRepo;
 
 
 	public String checkUserID(String ID) throws EntityNotFoundException
@@ -70,10 +70,10 @@ public class NewCustomerService
 			Customer DBobj = new Customer(e, f, a, b, c, d);
 			custRepo.save(DBobj);
 			
-			CurrentAccount saveObj2 = new CurrentAccount("Current", 1000.00, "INR", "Active", DBobj);
-			saveRepo2.save(saveObj2);
+			CurrentAccount currObj = new CurrentAccount("Current", 1000.00, "INR", "Active", DBobj);
+			currRepo.save(currObj);
 
-			currentAccountNum = saveObj2.getAccNumber();
+			currentAccountNum = currObj.getAccNumber();
 			System.out.println("Account number after saving in new customer service: "+currentAccountNum);
 
 			

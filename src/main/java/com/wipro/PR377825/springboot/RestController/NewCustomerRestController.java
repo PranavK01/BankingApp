@@ -3,10 +3,6 @@ package com.wipro.PR377825.springboot.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +31,7 @@ public class NewCustomerRestController {
 		String email = HTMLobj.getEmail();		
 		System.out.println("email from HTML input:" + email);
 
-		String contact = HTMLobj.getphone();		
+		String contact = HTMLobj.getPhone();		
 		System.out.println("contact number from HTML input:" + contact);
 
 		String userID = HTMLobj.getUserId();
@@ -44,21 +40,24 @@ public class NewCustomerRestController {
 		String password = HTMLobj.getPassword();
 		System.out.println("Password from HTML input:" + password);
 
-		String currentAcc = HTMLobj.getCurrentAcc();
-		System.out.println("Is current account needed: " + currentAcc);
+		String accType = HTMLobj.getAccType();
+		System.out.println("Account type: " + accType);
 
 		try 
 		{
 			String userId = custService.checkUserID(userID);
 			if (userId == null)
 			{
+				System.out.println("Entered UserId is null");
 				String Email = custService.checkEmail(email);
 				if (Email == null)
 				{
+					System.out.println("Entered Email is null");
 					String phone = custService.checkContactNumber(contact);
 					if (phone == null)
 					{
-						custService.addNewCustomer(firstName, lastName, email, contact, userID, password, currentAcc);			
+						System.out.println("Entered phone is null");
+						custService.addNewCustomer(firstName, lastName, email, contact, userID, password, accType);						
 
 						return new ResponseEntity<String>("New Customer has been successfully created", HttpStatus.OK);
 					}

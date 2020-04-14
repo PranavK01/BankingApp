@@ -17,7 +17,7 @@
 		Password:
 		<input type="password" name="password" required></input><br>
 		Account Type: 
-		<select name="currentAcc" required>
+		<select name="accType" required>
 			<option></option>
 			<option>Saving</option>
 			<option>Current</option>

@@ -1,9 +1,7 @@
 package com.wipro.PR377825.springboot.entity;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,15 +33,10 @@ public class CurrentAccount
 	@Column(name="status", nullable = false) 
 	private String status;
 
-	@OneToOne
+	@OneToOne//(cascade=CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "user_id")
 	private Customer FKuserID;
 	
-
-	//		// ****  setting up one to many mapping to saving and current entity  ****
-	//	    @OneToMany(mappedBy = "savingAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	//	    private List<CurrentAccTransaction> currentTransactionList;
-
 
 	// defining constructors 
 	public CurrentAccount() {   }

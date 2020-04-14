@@ -11,19 +11,21 @@ public class NewCustomerHTML
 	public String phone;
 	public String userId;
 	public String password;
-	public String currentAcc;
+	public String accType;
 	public String field;
 	
 	public NewCustomerHTML() {   }
-	
-	public NewCustomerHTML(String firstName, String lastName, String email, String contact_No, String userId,String password) {
+
+	public NewCustomerHTML(String firstName, String lastName, String email, String phone, String userId,
+			String password, String accType) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		phone = contact_No;
+		this.phone = phone;
 		this.userId = userId;
 		this.password = password;
+		this.accType = accType;
 	}
 
 	public String getFirstName() {
@@ -50,11 +52,11 @@ public class NewCustomerHTML
 		this.email = email;
 	}
 
-	public String getphone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setphone(String phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -74,12 +76,12 @@ public class NewCustomerHTML
 		this.password = password;
 	}
 
-	public String getCurrentAcc() {
-		return currentAcc;
+	public String getAccType() {
+		return accType;
 	}
 
-	public void setCurrentAcc(String currentAcc) {
-		this.currentAcc = currentAcc;
+	public void setAccType(String accType) {
+		this.accType = accType;
 	}
 
 	public String getField() {
@@ -89,7 +91,5 @@ public class NewCustomerHTML
 	public void setField(String field) {
 		this.field = field;
 	}
-	
-	
-	
+		
 }

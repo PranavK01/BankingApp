@@ -37,7 +37,7 @@ public class NewCustomerController
 		String email = HTMLobj.getEmail();		
 		System.out.println("email from HTML input:" + email);
 
-		String contact = HTMLobj.getphone();		
+		String contact = HTMLobj.getPhone();		
 		System.out.println("contact number from HTML input:" + contact);
 
 		String userID = HTMLobj.getUserId();
@@ -46,8 +46,8 @@ public class NewCustomerController
 		String password = HTMLobj.getPassword();
 		System.out.println("Password from HTML input:" + password);
 
-		String accType = HTMLobj.getCurrentAcc();
-		System.out.println("Is current account needed: " + accType);
+		String accType = HTMLobj.getAccType();
+		System.out.println("accType: " + accType);
 
 		
 		try 

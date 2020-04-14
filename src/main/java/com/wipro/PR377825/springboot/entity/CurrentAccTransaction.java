@@ -43,10 +43,6 @@ public class CurrentAccTransaction
 	private CurrentAccount currentaccNumber;
 
 
-	//	@ManyToOne
-	//	@JoinColumn(name = "account_number")
-	//	private CurrentAccount currentAccNumber;
-
 	public CurrentAccTransaction() {  	}
 
 	public CurrentAccTransaction(String description, double amount, double availableBalance, double previousBal, Date dateTime,

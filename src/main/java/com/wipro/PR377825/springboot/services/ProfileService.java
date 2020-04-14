@@ -38,8 +38,7 @@ public class ProfileService
 	{
 		Optional<Customer> userId = custRepo.findById(ID);
 		if (userId.isPresent())
-		{
-			obj.setUserId(ID);
+		{	
 			return custRepo.save(obj);
 		}
 		return null;

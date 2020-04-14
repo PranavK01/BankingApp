@@ -72,7 +72,7 @@ public class DashboardController
 
 
 					model.addAttribute("name",customerName);
-					model.addAttribute("type",accType);
+					model.addAttribute("type",accType + " Account");
 					model.addAttribute("AccNumber","Account Number: " + accountnumber);
 					model.addAttribute("Balance","Available balance: " + Balance);
 					model.addAttribute("Currency",Currency);
@@ -123,7 +123,7 @@ public class DashboardController
 
 
 		model.addAttribute("name",customerName);
-		model.addAttribute("type",accType);
+		model.addAttribute("type",accType + " Account");
 		model.addAttribute("AccNumber","Account Number: " + accountnumber);
 		model.addAttribute("Balance","Available balance: " + Balance);
 		model.addAttribute("Currency",Currency);

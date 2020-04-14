@@ -25,11 +25,11 @@ public class ProfileRestController
 
 
 	@GetMapping("/Profile/{phone}")
-	public ResponseEntity<Map<String,String>> getProfileInfo(@PathVariable("phone") String number)
+	public ResponseEntity<Map<String,String>> getProfileByPhone(@PathVariable("phone") String number)
 	{
 		HashMap<String, String> map = new HashMap<>();
 		
-		String details[] = proService.getProfileDetails(number);
+		String details[] = proService.getProfileByPhone(number);
 		
 		String fname = details[0];
 		String lname = details[1];
@@ -49,7 +49,8 @@ public class ProfileRestController
 
 	@PutMapping("/Profile/update/{UserID}")
 	public ResponseEntity<Customer> updateProfile(@PathVariable("UserID") String ID, @RequestBody Customer custObj)
-	{
+	{	
+		
 		Customer update = proService.updateProfileById(ID, custObj);
 
 		return new ResponseEntity<>(update, HttpStatus.OK);
