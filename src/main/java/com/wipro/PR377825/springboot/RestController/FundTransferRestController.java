@@ -60,8 +60,9 @@ public class FundTransferRestController
 								// debit leg
 								double closingBal = balance - amt;
 								System.out.println("closing balance after debit: "+closingBal);
-
-								debitService.updateDetails(fromAcc, closingBal, remark, amt, balance);
+								
+								debitService.updateDebitDetails(fromAcc, closingBal, remark, amt, balance);
+								
 								System.out.println("account " + fromAcc + " has been debited successfully");
 
 
@@ -71,8 +72,9 @@ public class FundTransferRestController
 
 								closingBal = balance + amt;
 								System.out.println("closing balance after debit: "+closingBal);
-
-								creditService.updateDetails(toAcc, closingBal, remark, amt, balance);
+								
+								creditService.updateCreditDetails(toAcc, closingBal, remark, amt, balance);
+								
 								System.out.println("account " + toAcc + " has been credited successfully");
 
 								String response = "Amount " + amt + " has been transferred successfully from " + fromAcc + " to " + toAcc;

@@ -13,12 +13,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "saving_account")
-@SequenceGenerator(name="seq", initialValue=20050, allocationSize = 33)
+@SequenceGenerator(name="saveSeq", initialValue=20051, allocationSize = 33)
 public class SavingAccount
 { 
 	//defining fields
 		@Id
-		@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
+		@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="saveSeq")
 		@Column(name="account_number")
 		private Long accNumber;
 

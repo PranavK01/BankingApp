@@ -17,6 +17,14 @@
 			<a href="/forgotPassword">${back3}</a>
 			<br>
 			<a href="/dashboard/FundTransfer">${back4}</a>
+			<br>
+			<a href="/dashboard/Profile/update/firstName">${back5}</a>
+			<br>
+			<a href="/dashboard/Profile/update/lastName">${back6}</a>
+			<br>
+			<a href="/dashboard/Profile/update/email">${back7}</a>
+			<br>
+			<a href="/dashboard/Profile/update/phone">${back8}</a>
 			
 	</div>
 	

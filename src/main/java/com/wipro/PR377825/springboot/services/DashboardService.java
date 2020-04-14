@@ -68,9 +68,11 @@ public class DashboardService
 		long accNum;
 		
 		System.out.println("inside findAccNumber in dash service, checking saving account table");
-		Optional<SavingAccount> DBobj = saveRepo.findOne(SavingAccount<findAccType(ID)>);
 		
-		System.out.println("DBobj: " + DBobj);
+		Customer obj = custRepo.getOne(ID);
+		
+		SavingAccount DBobj = saveRepo.findByFKuserID(obj);		
+			
 		if (DBobj != null)
 		{
 			accNum = DBobj.getAccNumber();
@@ -78,10 +80,10 @@ public class DashboardService
 		}
 		else
 		{
-			System.out.println("checking in current account table");
-			CurrentAccount obj = currentRepo.findByFKuserID(ID);
+			System.out.println("account number does not present in saving account table, checking in current account table");
+			CurrentAccount currObj = currentRepo.findByFKuserID(obj);
 			
-			accNum = obj.getAccNumber();
+			accNum = currObj.getAccNumber();
 			System.out.println("accNum from db in dashboard service: "+accNum);
 		}		
 		return accNum;

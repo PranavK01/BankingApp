@@ -76,6 +76,8 @@ public class DashboardController
 					model.addAttribute("AccNumber","Account Number: " + accountnumber);
 					model.addAttribute("Balance","Available balance: " + Balance);
 					model.addAttribute("Currency",Currency);
+					
+					return "Dashboard";
 
 				}
 				else

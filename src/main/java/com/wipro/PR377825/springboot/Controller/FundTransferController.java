@@ -150,7 +150,7 @@ public class FundTransferController
 			closingBal = balance - amt;
 			System.out.println("closing balance after debit: "+closingBal);
 
-			debitService.updateDetails(fromAcc, closingBal, remark, amt, balance);
+			debitService.updateDebitDetails(fromAcc, closingBal, remark, amt, balance);
 			System.out.println("account " + fromAcc + " has been debited successfully");
 
 
@@ -159,9 +159,9 @@ public class FundTransferController
 			System.out.println("balance from db: "+balance);
 
 			closingBal = balance + amt;
-			System.out.println("closing balance after debit: "+closingBal);
+			System.out.println("closing balance after credit: "+closingBal);
 
-			creditService.updateDetails(toAcc, closingBal, remark, amt, balance);
+			creditService.updateCreditDetails(toAcc, closingBal, remark, amt, balance);
 			System.out.println("account " + toAcc + " has been credited successfully");
 
 			model.addAttribute("name",dashCrtl.getCustomerName());

@@ -1,6 +1,7 @@
 package com.wipro.PR377825.springboot.services;
 
 import java.util.Date;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -34,16 +35,31 @@ public class CreditService
 	CurrentTransactionRepo currentTranRepo;
 
 
-	public String updateDetails(long accNumber, double closingBalance, String remark, double amt, double balance) throws EntityNotFoundException
+	public String updateCreditDetails(long accNumber, double closingBalance, String remark, double amt, double balance) throws EntityNotFoundException
 	{ 
-		SavingAccount saveObj = saveRepo.findById(accNumber).get();
-		if (saveObj != null)
+		System.out.println("entered updateCreditDetails.");
+		Optional<SavingAccount> saveObj = saveRepo.findById(accNumber);
+		
+		System.out.println("saveObj: " + saveObj);
+		
+		if (saveObj.isPresent())
 		{
+			System.out.println("account found in saving table");
 			Date date = new Date();
+			
+		
+//		SavingAccount saveObj = saveRepo.getOne(accNumber);
+//		
+//		if (saveObj != null)
+//		{
+//			System.out.println("account found in saving table");
+//			Date date = new Date();
+			
+			SavingAccount Obj = saveRepo.getOne(accNumber);
 			
 //			adding entries in saving transaction table
 			SavingAccTransaction saveTranObj = new SavingAccTransaction();
-			saveTranObj.setSavingAccNumber(saveObj);
+			saveTranObj.setSavingAccNumber(Obj);
 			saveTranObj.setAvailableBalance(closingBalance);
 			saveTranObj.setDateTime(date);
 			saveTranObj.setAmount(amt);
@@ -54,14 +70,15 @@ public class CreditService
 			saveTranRepo.save(saveTranObj);
 
 //			updating entry in saving account table
-			saveObj.setBalance(closingBalance);
-			saveRepo.save(saveObj);
+			Obj.setBalance(closingBalance);
+			saveRepo.save(Obj);
 
 		}
 		else
 		{
 			Date date = new Date();
 			CurrentAccount currObj = currentRepo.findById(accNumber).get();
+			System.out.println("account found in current table");
 			
 //			adding entries in current transaction table
 			CurrentAccTransaction currentObj = new CurrentAccTransaction();

@@ -15,6 +15,8 @@ public class ProfileService
 {
 	@Autowired
 	CustomerRepo custRepo;
+	@Autowired
+	NewCustomerService newCustService;
 
 //	getProfileByPhone method for Rest API to be tested from Postman
 	
@@ -59,32 +61,56 @@ public class ProfileService
 
 	public String saveDetail(String ID, String field, String res) throws EntityNotFoundException
 	{
+		String response = "";
+		
 		if (field.equals("FirstName"))
 		{
 			Customer obj = custRepo.findById(ID).get();
 			obj.setFirstName(res);
 			custRepo.save(obj);
+			
+			response = "Success";
 		}
 		else if (field.equals("LastName"))
 		{
 			Customer obj = custRepo.findById(ID).get();
 			obj.setLastName(res);
 			custRepo.save(obj);
+			
+			response = "Success";
 		}
 		else if (field.equals("Email"))
 		{
-			Customer obj = custRepo.findById(ID).get();
-			obj.setEmail(res);
-			custRepo.save(obj);
+			String email = newCustService.checkEmail(res);
+			if(email == null )
+			{
+				Customer obj = custRepo.findById(ID).get();
+				obj.setEmail(res);
+				custRepo.save(obj);
+				
+				response = "Success";
+			}
+			else
+			{
+				response = "Email already taken";
+			}
 		}
 		else
 		{
-			Customer obj = custRepo.findById(ID).get();
-			obj.setPhone(res);
-			custRepo.save(obj);
+			
+			String phone = newCustService.checkContactNumber(res);
+			if (phone == null)
+			{
+				Customer obj = custRepo.findById(ID).get();
+				obj.setPhone(res);
+				custRepo.save(obj);
+				
+				response = "Success";
+			}
+			else
+				response = "Contact number already exits";
 		}
 		
-		String name = custRepo.getOne(ID).getFirstName() + " " + custRepo.getOne(ID).getLastName();
-		return name;
+		return response;
 	}
 }
