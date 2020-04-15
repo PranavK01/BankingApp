@@ -15,7 +15,7 @@ public class LoginService
 {
 	@Autowired
 	CustomerRepo custRepo;
-	
+
 	public String getID(String ID) throws EntityNotFoundException
 	{ 
 		Optional<Customer> Userid = custRepo.findById(ID);
@@ -27,11 +27,16 @@ public class LoginService
 		}
 		return null;		
 	}
-	
+
 	public String getPassword(String ID) throws EntityNotFoundException
 	{
-		String password = custRepo.getOne(ID).getPassword();
-		System.out.println("password from Db in findpassword function: "+password);
-		return password;
+		Optional<Customer> Userid = custRepo.findById(ID);
+		if(Userid.isPresent())
+		{
+			String password = custRepo.getOne(ID).getPassword();
+			System.out.println("password from Db in findpassword function: "+password);
+			return password;
+		}
+		return null;
 	}
 }

@@ -2,13 +2,16 @@ package com.wipro.PR377825.springboot.UnitTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.wipro.PR377825.springboot.RestController.CustomerRestController;
@@ -20,101 +23,78 @@ import com.wipro.PR377825.springboot.services.DashboardService;
 @SpringBootTest
 public class CustomerTests 
 {
-	@InjectMocks
+	@Autowired
 	CustomerRestController custRestCtrl;
-	@Mock
-	DashboardService dashServ;
+//	@Mock
+//	DashboardService dashServ;
+//
+//	@InjectMocks
+//	DashboardService dashService;
+//	@Mock
+//	CustomerRepo custRepo;
+
+
+//	@Before
+//	public void init() 
+//	{
+//		MockitoAnnotations.initMocks(this);
+//	}
+
+
 	
-	@InjectMocks
-	DashboardService dashService;
-	@Mock
-	CustomerRepo custRepo;
-
-
-	@Before
-	public void init() 
-	{
-		MockitoAnnotations.initMocks(this);
-	}
-
-
-
 	@Test
-	public void getAllCustomersTest()
+	public void getAllCustomersSuccess()
 	{
-		String res = "";
 		System.out.println("Running unit test case");
 		System.out.println("fetching all customer details");
 
-//        Customer cust = new Customer();
-		Customer cust1 = new Customer("PK01", "pranav.kalra3@wipro.com", "Pranav", "Kalra", "123", "9717275141");
-        custRepo.save(cust1);
-		//		getting list of all customers by calling getAllCustomers method from dashboard service.		
-		try
-		{
-			List<Customer> customer = dashService.getAllCustomers();
-			if (customer != null)
-			{
-				System.out.println("fetched all customer details");
-				System.out.println("data: "+ customer);
+		ResponseEntity<List<Customer>> response = custRestCtrl.getAllCustomers();
+		System.out.println("result: "+response);
 
-				res = "true";
-			}
-			assertEquals("true", res);
-			System.out.println("test case ended");
-		}
-		
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		Customer obj = new Customer("PK01","123","Pranav","Kalra","pranav.k.com","6321432148");
+		List<Customer> customer = new ArrayList<Customer>(4);
+		customer.add(0,obj);
+
+		assertEquals(new ResponseEntity<>(customer, HttpStatus.OK), response);
+
+		System.out.println("test case ended");
 	}
 	
 	
-	//     second test case
+	@Test
+	public void deleteCustomerByIDSuccess()
+	{
+		System.out.println("Running unit test case");
+		System.out.println("Deleting customer details by userID");
+		
+		String userID ="PK01"; 
+
+		ResponseEntity<String> response = custRestCtrl.deleteById(userID);
+		System.out.println("result: "+response);
+
+		assertEquals(new ResponseEntity<>("Customer details deleted for UserID "+userID, HttpStatus.OK), response);
+
+		System.out.println("test case ended");
+	}
+	
 	
 	@Test
-	public void getAllCustomersTest1()
+	public void deleteAllCustomersSuccess()
 	{
-//		String res = "";
 		System.out.println("Running unit test case");
-		System.out.println("fetching all customer details");
-
-      ResponseEntity<List<Customer>> response = custRestCtrl.getAllCustomers();
-      System.out.println("result: "+response);
-      String res = response.toString();
-      
-			assertEquals("<200 OK OK,[],[]>", res);
-			System.out.println("test case ended");
-		}
+		System.out.println("Deleting all customer details ");
 		
+		ResponseEntity<String> response = custRestCtrl.deleteAll();
+		System.out.println("result: "+response);
 
+		assertEquals(new ResponseEntity<>("All Customer details deleted", HttpStatus.OK), response);
+
+		System.out.println("test case ended");
+	}
 	
 	
-//	****************************
 	
-	// given
-   
-//    Employee employee2 = new Employee(2, "Alex", "Gussin", "example@gmail.com");
-//    Employees employees = new Employees();
-//    employees.setEmployeeList(Arrays.asList(employee1, employee2));
-//
-//    when(employeeDAO.getAllEmployees()).thenReturn(employees);
-//
-//    // when
-//    Employees result = employeeController.getEmployees();
-//
-//    // then
-//    assertThat(result.getEmployeeList().size()).isEqualTo(2);
-//     
-//    assertThat(result.getEmployeeList().get(0).getFirstName())
-//                    .isEqualTo(employee1.getFirstName());
-//     
-//    assertThat(result.getEmployeeList().get(1).getFirstName())
-//                    .isEqualTo(employee2.getFirstName());
-//	
-//	****************************
-    
-	
+
+
 }
 

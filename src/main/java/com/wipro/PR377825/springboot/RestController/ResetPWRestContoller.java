@@ -21,11 +21,8 @@ public class ResetPWRestContoller {
 
 	
 	@PutMapping("/Reset/Password/{UserID}")
-	public ResponseEntity<String> updateProfile(@PathVariable("UserID") String ID, @RequestBody ResetPwHTML HTMLobj)
+	public ResponseEntity<String> resetPassword(@PathVariable("UserID") String ID, @RequestBody ResetPwHTML HTMLobj)
 	{
-		//		String UserId = HTMLobj.getUserId();
-		//		System.out.println("UserId from resetPW form: "+UserId);
-
 		try
 		{ 
 			String userID = resetService.getID(ID);

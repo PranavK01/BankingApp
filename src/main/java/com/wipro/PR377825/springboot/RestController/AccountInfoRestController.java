@@ -1,5 +1,10 @@
 package com.wipro.PR377825.springboot.RestController;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +27,59 @@ public class AccountInfoRestController
 
 
 
+
+	@GetMapping("/AllSavingAccounts")
+	public ResponseEntity<Collection<Map<String, String>>> getAllSavingAccounts()
+	{
+		List<SavingAccount> account = enqService.getAllSavingAccounts();
+
+		Collection<Map<String, String>> maps = new HashSet<Map<String, String>>();
+
+		for (SavingAccount tempSaveAccount : account) 
+		{
+			System.out.println(tempSaveAccount);
+			Map<String, String> tempMap = new HashMap<String, String>();
+			tempMap.put("Account Number", ""+tempSaveAccount.getAccNumber());
+			tempMap.put("Account Type", ""+tempSaveAccount.getAccountType());
+			tempMap.put("Balance", ""+tempSaveAccount.getBalance());
+			tempMap.put("Currency", ""+tempSaveAccount.getCurrency());
+			tempMap.put("Status", ""+tempSaveAccount.getStatus());
+			tempMap.put("UserId", ""+tempSaveAccount.getFKuserID().getUserId());
+
+			maps.add(tempMap);
+		}
+
+		return new ResponseEntity<Collection<Map<String, String>>>(maps, HttpStatus.OK);
+	}
+	
+
+	@GetMapping("/AllCurrentAccounts")
+	public ResponseEntity<Collection<Map<String, String>>> getAllCurrentAccounts()
+	{
+		List<CurrentAccount> account = enqService.getAllCurrentAccounts();
+
+		Collection<Map<String, String>> maps = new HashSet<Map<String, String>>();
+
+		for (CurrentAccount tempCurrAccount : account) 
+		{
+			System.out.println(tempCurrAccount);
+			Map<String, String> tempMap = new HashMap<String, String>();
+			tempMap.put("Account Number", ""+tempCurrAccount.getAccNumber());
+			tempMap.put("Account Type", ""+tempCurrAccount.getAccountType());
+			tempMap.put("Balance", ""+tempCurrAccount.getBalance());
+			tempMap.put("Currency", ""+tempCurrAccount.getCurrency());
+			tempMap.put("Status", ""+tempCurrAccount.getStatus());
+			tempMap.put("UserId", ""+tempCurrAccount.getFKuserID1().getUserId());
+
+			maps.add(tempMap);
+		}
+
+		return new ResponseEntity<Collection<Map<String, String>>>(maps, HttpStatus.OK);
+	}
+	
+	
 	@GetMapping("/SavingAccountInfo/{AccNum}")
-	public ResponseEntity<Optional<SavingAccount>> getSavingAccountInfo(@PathVariable("AccNum") Long accNum)
+	public ResponseEntity<Optional<SavingAccount>> getSavingAccountInfoByID(@PathVariable("AccNum") Long accNum)
 	{
 
 		Optional<SavingAccount> accountNum = enqService.findByAccountNumber1(accNum);
@@ -39,7 +95,7 @@ public class AccountInfoRestController
 
 
 	@GetMapping(value = "/CurrentAccountInfo/{AccNum}")
-	public ResponseEntity<Optional<CurrentAccount>> getCurrentAccountInfo(@PathVariable("AccNum") Long accNum)
+	public ResponseEntity<Optional<CurrentAccount>> getCurrentAccountInfoByID(@PathVariable("AccNum") Long accNum)
 	{
 
 		Optional<CurrentAccount> accountNum = enqService.findByAccountNumber2(accNum);

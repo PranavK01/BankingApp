@@ -61,33 +61,33 @@ public class NewCustomerService
 	}
 	
 
-	public String addNewCustomer(String a, String b, String c, String d, String e, String f, String g)
+	public String addNewCustomer(String fname, String lname, String email, String phone, String ID, String password, String accType)
 	{
-		long currentAccountNum, savingAccountNum;
+//		long currentAccountNum, savingAccountNum;
 
-		if (g.equals("Current"))
+		if (accType.equals("Current"))
 		{
-			Customer DBobj = new Customer(e, f, a, b, c, d);
+			Customer DBobj = new Customer(ID, password, fname, lname, email, phone);
 			custRepo.save(DBobj);
 			
 			CurrentAccount currObj = new CurrentAccount("Current", 1000.00, "INR", "Active", DBobj);
 			currRepo.save(currObj);
 
-			currentAccountNum = currObj.getAccNumber();
-			System.out.println("Account number after saving in new customer service: "+currentAccountNum);
+//			currentAccountNum = currObj.getAccNumber();
+//			System.out.println("Account number after saving in new customer service: "+currentAccountNum);
 
 			
 		}
 		else
 		{
-			Customer DBobj = new Customer(e, f, a, b, c, d);
+			Customer DBobj = new Customer(ID, password, fname, lname, email, phone);
 			custRepo.save(DBobj);
 			
 			SavingAccount saveObj = new SavingAccount("Saving", 10000.00, "INR", "Active", DBobj);
 			saveRepo.save(saveObj);
 
-			savingAccountNum = saveObj.getAccNumber();
-			System.out.println("Account number after saving in new customer service: "+savingAccountNum);
+//			savingAccountNum = saveObj.getAccNumber();
+//			System.out.println("Account number after saving in new customer service: "+savingAccountNum);
 
 			
 		}			

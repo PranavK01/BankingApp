@@ -48,15 +48,12 @@ public class NewCustomerRestController {
 			String userId = custService.checkUserID(userID);
 			if (userId == null)
 			{
-				System.out.println("Entered UserId is null");
 				String Email = custService.checkEmail(email);
 				if (Email == null)
 				{
-					System.out.println("Entered Email is null");
 					String phone = custService.checkContactNumber(contact);
 					if (phone == null)
 					{
-						System.out.println("Entered phone is null");
 						custService.addNewCustomer(firstName, lastName, email, contact, userID, password, accType);						
 
 						return new ResponseEntity<String>("New Customer has been successfully created", HttpStatus.OK);
