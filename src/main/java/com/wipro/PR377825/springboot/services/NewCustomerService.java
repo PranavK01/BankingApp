@@ -3,6 +3,7 @@ package com.wipro.PR377825.springboot.services;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +64,6 @@ public class NewCustomerService
 
 	public String addNewCustomer(String fname, String lname, String email, String phone, String ID, String password, String accType)
 	{
-//		long currentAccountNum, savingAccountNum;
 
 		if (accType.equals("Current"))
 		{
@@ -72,11 +72,7 @@ public class NewCustomerService
 			
 			CurrentAccount currObj = new CurrentAccount("Current", 1000.00, "INR", "Active", DBobj);
 			currRepo.save(currObj);
-
-//			currentAccountNum = currObj.getAccNumber();
-//			System.out.println("Account number after saving in new customer service: "+currentAccountNum);
-
-			
+		
 		}
 		else
 		{
@@ -84,12 +80,7 @@ public class NewCustomerService
 			custRepo.save(DBobj);
 			
 			SavingAccount saveObj = new SavingAccount("Saving", 10000.00, "INR", "Active", DBobj);
-			saveRepo.save(saveObj);
-
-//			savingAccountNum = saveObj.getAccNumber();
-//			System.out.println("Account number after saving in new customer service: "+savingAccountNum);
-
-			
+			saveRepo.save(saveObj);			
 		}			
 
 		return null;

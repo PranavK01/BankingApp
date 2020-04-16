@@ -5,14 +5,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class FundTransferHTML 
 {
-	public int fromAcc;
-	public int toAcc;
-	public int amount;
+	public long fromAcc;
+	public long toAcc;
+	public double amount;
 	public String Remark;
 	
 	public FundTransferHTML() { }
 
-	public FundTransferHTML(int fromAcc, int toAcc, int amount, String remark) {
+	public FundTransferHTML(long fromAcc, long toAcc, double amount, String remark) {
 		super();
 		this.fromAcc = fromAcc;
 		this.toAcc = toAcc;
@@ -20,27 +20,27 @@ public class FundTransferHTML
 		Remark = remark;
 	}
 
-	public int getFromAcc() {
+	public long getFromAcc() {
 		return fromAcc;
 	}
 
-	public void setFromAcc(int fromAcc) {
+	public void setFromAcc(long fromAcc) {
 		this.fromAcc = fromAcc;
 	}
 
-	public int getToAcc() {
+	public long getToAcc() {
 		return toAcc;
 	}
 
-	public void setToAcc(int toAcc) {
+	public void setToAcc(long toAcc) {
 		this.toAcc = toAcc;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
@@ -51,5 +51,5 @@ public class FundTransferHTML
 	public void setRemark(String remark) {
 		Remark = remark;
 	}
-			
+	
 }

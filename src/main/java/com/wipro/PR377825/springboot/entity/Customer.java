@@ -37,6 +37,7 @@ public class Customer
     
     public Customer()  {  }
     
+    
 	public Customer(String userId, String password, String firstName, String lastName, String email, String phone) {
 		super();
 		this.userId = userId;

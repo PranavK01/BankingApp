@@ -2,12 +2,15 @@ package com.wipro.PR377825.springboot.services;
 
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.wipro.PR377825.springboot.entity.Customer;
 import com.wipro.PR377825.springboot.repository.CustomerRepo;
 
 @Service
+@Transactional
 public class ResetPwService 
 {
 	@Autowired
