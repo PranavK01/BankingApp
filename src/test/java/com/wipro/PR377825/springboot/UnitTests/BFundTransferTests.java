@@ -16,7 +16,7 @@ import com.wipro.PR377825.springboot.RestController.FundTransferRestController;
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
-public class FundTransferTests 
+public class BFundTransferTests 
 {
 	@Autowired
 	FundTransferRestController fundTranRestCtrl;

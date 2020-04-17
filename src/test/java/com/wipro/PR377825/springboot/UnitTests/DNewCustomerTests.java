@@ -20,7 +20,7 @@ import com.wipro.PR377825.springboot.RestController.NewCustomerRestController;
 //Sorts by order
 @TestMethodOrder(OrderAnnotation.class)
 
-public class NewCustomerTests 
+public class DNewCustomerTests 
 {
 	@Autowired
 	NewCustomerRestController newCustCtrl;

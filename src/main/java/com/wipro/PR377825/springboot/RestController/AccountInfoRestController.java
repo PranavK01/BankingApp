@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -79,33 +78,45 @@ public class AccountInfoRestController
 	
 	
 	@GetMapping("/SavingAccountInfo/{AccNum}")
-	public ResponseEntity<Optional<SavingAccount>> getSavingAccountInfoByID(@PathVariable("AccNum") Long accNum)
+	public ResponseEntity<Map<String, String>> getSavingAccountInfoByID(@PathVariable("AccNum") Long accNum)
 	{
+		HashMap<String, String> map = new HashMap<>();
+		String account[] = enqService.findByAccountNumberSaving(accNum);
+			
+			String accountNum = account[0];
+			String accType = account[1];
+			String balance = account[2];
+			String status = account[3];
+			String currency = account[4];
 
-		Optional<SavingAccount> accountNum = enqService.findByAccountNumber1(accNum);
-		if (accountNum.isPresent())
-		{		
-			return new ResponseEntity<>(accountNum, HttpStatus.OK);
-		}
-		else
-		{
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
+			map.put("Account Number",accountNum);
+			map.put("Account Type",accType);
+			map.put("Balance",balance);
+			map.put("Status",status);
+			map.put("Currency",currency);
+
+			return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 
 	@GetMapping(value = "/CurrentAccountInfo/{AccNum}")
-	public ResponseEntity<Optional<CurrentAccount>> getCurrentAccountInfoByID(@PathVariable("AccNum") Long accNum)
+	public ResponseEntity<Map<String, String>> getCurrentAccountInfoByID(@PathVariable("AccNum") Long accNum)
 	{
+		HashMap<String, String> map = new HashMap<>();
+		String account[] = enqService.findByAccountNumberCurrent(accNum);
+			
+			String accountNum = account[0];
+			String accType = account[1];
+			String balance = account[2];
+			String status = account[3];
+			String currency = account[4];
 
-		Optional<CurrentAccount> accountNum = enqService.findByAccountNumber2(accNum);
-		if (accountNum.isPresent())
-		{		
-			return new ResponseEntity<>(accountNum, HttpStatus.OK);
-		}
-		else
-		{
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
+			map.put("Account Number",accountNum);
+			map.put("Account Type",accType);
+			map.put("Balance",balance);
+			map.put("Status",status);
+			map.put("Currency",currency);
+
+			return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 }

@@ -14,7 +14,7 @@ import com.wipro.PR377825.springboot.RestController.LoginRestController;
 import com.wipro.PR377825.springboot.services.NewCustomerService;
 
 @SpringBootTest
-public class LoginTests
+public class CLoginTests
 {
 
 	@Autowired

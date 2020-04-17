@@ -21,7 +21,7 @@ import com.wipro.PR377825.springboot.entity.Customer;
 //Sorts by order
 @TestMethodOrder(OrderAnnotation.class)
 
-public class ProfileTests 
+public class EProfileTests 
 {
 	@Autowired
 	ProfileRestController proRestCtrl;

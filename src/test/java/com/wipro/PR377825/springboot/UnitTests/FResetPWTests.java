@@ -17,7 +17,7 @@ import com.wipro.PR377825.springboot.RestController.ResetPWRestContoller;
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
-public class ResetPWTests 
+public class FResetPWTests 
 {
 	
 	@Autowired

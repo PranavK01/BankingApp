@@ -37,19 +37,33 @@ public class EnquiryService {
 	}
 	
 //	findByAccountNumber1 method for Rest API to be tested from Postman
-	public Optional<SavingAccount> findByAccountNumber1(long ID)
+	public String[] findByAccountNumberSaving(long ID)
 	{ 
-		Optional<SavingAccount> accountNum = saveRepo.findById(ID);
+		Long accNum = saveRepo.getOne(ID).getAccNumber();
+		String accType = saveRepo.getOne(ID).getAccountType();
+		double balance = saveRepo.getOne(ID).getBalance();
+		String status = saveRepo.getOne(ID).getStatus();
+		String currency = saveRepo.getOne(ID).getCurrency();
+		
+		
+		String account[] = {accNum.toString(), accType, String.valueOf(balance), currency, status};
 
-		return accountNum;
+		return account;
 	}
 
-//	findByAccountNumber2 method for Rest API to be tested from Postman
-	public Optional<CurrentAccount> findByAccountNumber2(long ID)
+//	findByAccountNumberCurrent method for Rest API to be tested from Postman
+	public String[] findByAccountNumberCurrent(long ID)
 	{ 
-		Optional<CurrentAccount> accountNum = currentRepo.findById(ID);
+		Long accNum = currentRepo.getOne(ID).getAccNumber();
+		String accType = currentRepo.getOne(ID).getAccountType();
+		double balance = currentRepo.getOne(ID).getBalance();
+		String status = currentRepo.getOne(ID).getStatus();
+		String currency = currentRepo.getOne(ID).getCurrency();
+		
+		
+		String account[] = {accNum.toString(), accType, String.valueOf(balance), currency, status};
 
-		return accountNum;
+		return account;
 	}
 	
 	// non Rest API methods
