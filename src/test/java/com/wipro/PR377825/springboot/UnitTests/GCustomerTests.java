@@ -15,7 +15,7 @@ import com.wipro.PR377825.springboot.entity.Customer;
 
 
 @SpringBootTest
-public class GZCustomerTests 
+public class GCustomerTests 
 {
 	@Autowired
 	CustomerRestController custRestCtrl;
