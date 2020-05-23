@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Collection;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,6 +22,7 @@ public class AAccountInfoTests
 		
 	
 	//@Test
+	@Ignore
 	public void getAllSavingAccountsSuccess()
 	{
 		System.out.println("Running unit test case - getAllSavingAccountsSuccess");
@@ -43,7 +45,8 @@ public class AAccountInfoTests
 	
 	
 	
-	@Test
+	//@Test
+	@Ignore
 	public void getAllCurrentAccountsSuccess()
 	{
 		System.out.println("Running unit test case - getAllCurrentAccountsSuccess");
