@@ -20,7 +20,7 @@ public class AAccountInfoTests
 	AccountInfoRestController accRestCtrl;
 		
 	
-	@Test
+	//@Test
 	public void getAllSavingAccountsSuccess()
 	{
 		System.out.println("Running unit test case - getAllSavingAccountsSuccess");
